@@ -81,4 +81,6 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASR_URL'] %>
+  database: ruby_lovers_production
+  username: ruby_lovers
+  password: <%= ENV['ruby_lovers_DATABASE_PASSWORD'] %>
