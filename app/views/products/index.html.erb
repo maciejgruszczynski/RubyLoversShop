@@ -1,0 +1,7 @@
+<% @products.each do |product| %>
+  <table>
+    <tr>
+      <td><%= link_to product.name, product_path(product) %></td>
+    </tr>
+  </table>
+<% end %>
