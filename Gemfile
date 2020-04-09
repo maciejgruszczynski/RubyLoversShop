@@ -10,14 +10,10 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'turbolinks', '~> 5.2', '>= 5.2.1'
+gem 'money-rails', '~>1.12'
 
 group :development, :test do
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 4.0.0'
-  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -28,7 +24,16 @@ group :development do
   gem 'rubocop', '~> 0.81.0'
   gem 'rubocop-performance', '~> 1.5', '>= 1.5.2'
   gem 'rubocop-rails', '~> 2.5', '>= 2.5.1'
+end
 
+group :test do
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
+  gem 'rspec-rails', '~> 4.0.0'
+  gem 'factory_bot_rails'
+  gem 'shoulda-matchers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

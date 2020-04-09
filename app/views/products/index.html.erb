@@ -1,11 +1,10 @@
 <div class="container" id="products">
-  <div class="row">
-    <% @products.each_slice(4) do |products| %>
-      <% products.each do |product| %>
-        <div class="col-4">
-          <%= link_to product.name, product_path(product) %>
-        </div>
-      <% end %>
+  <div class="row row-cols-4">
+    <% @products.each do |product| %>
+      <div class="col card card-body">
+        <%= link_to product.name, product_path(product) %>
+        <%= humanized_money_with_symbol product.price %>
+      </div>
     <% end %>
   </div>
 </div>

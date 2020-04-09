@@ -1,58 +1,41 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  before(:each) do
-    @product = build(:product)
+
+  let(:product) { build(:product) }
+
+  context 'Validation' do
+
+    it 'Product name is mandatory' do
+      product.name = nil
+
+      should validate_presence_of(:name)
+    end
+
+    it 'Product description is mandatory' do
+
+      product.description = nil
+
+      should validate_presence_of(:description)
+
+    end
+
+    it 'Product code is mandatory and has 6 characters' do
+      should validate_presence_of(:code)
+      should validate_length_of(:code)
+    end
+
+    it 'Product code is unique' do
+      product.save
+
+      product2 = build(:product)
+      should validate_uniqueness_of(:code).case_insensitive
+    end
+
+    it 'Product price is mandatory' do
+      is_expected.to monetize(:price)
+    end
   end
 
-  it "can create Product if contains valid name, description and code" do
-    product = Product.new(name: "name",
-                          description: "description",
-                          code: '111111')
-
-    expect(product.valid?).to eql(true)
-  end
-
-  it "Product name is mandatory" do
-    @product.name = nil
-
-    @product.validate
-    expect(@product.errors[:name]).to eql(["can't be blank"])
-  end
-
-  it "Product description is mandatory" do
-
-    @product.description = nil
-
-    @product.validate
-    expect(@product.errors[:description]).to eql(["can't be blank"])
-  end
-
-  it "Product code is mandatory and has 6 characters" do
-    @product.code = nil
-
-    @product.validate
-    expect(@product.errors[:code]).to eql(["can't be blank", "is the wrong length (should be 6 characters)"])
-
-    @product.code = "12345"
-
-    @product.validate
-    expect(@product.errors[:code]).to eql(["is the wrong length (should be 6 characters)"])
-
-    @product.code = "1234567"
-
-    @product.validate
-    expect(@product.errors[:code]).to eql(["is the wrong length (should be 6 characters)"])
-  end
-
-  it "Product code is unique" do
-    @product.save
-
-    @product2 = Product.new(name: @product.name,
-                            description: @product.description,
-                            code: @product.code)
-    @product2.validate
-    expect(@product2.errors[:code]).to eql(["has already been taken"])
-  end
 
 end
