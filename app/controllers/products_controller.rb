@@ -5,5 +5,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    @disabled_sidebar = true
   end
 end
