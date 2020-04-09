@@ -11,6 +11,21 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render '/layouts/shared/navbar' %>
+
+    <div class="row mt-4">
+      <% unless @disabled_sidebar %>
+        <div class="col-3 ">
+          <%= render '/layouts/shared/sidebar' %>
+        </div>
+      <% end %>
+      <div class="col">
+        <main role="main">
+          <%= yield %>
+        </main>
+      </div>
+    </div>
+
+    <%= render '/layouts/shared/footer' %>
   </body>
 </html>

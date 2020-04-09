@@ -1,7 +1,12 @@
-<% @products.each do |product| %>
-  <table>
-    <tr>
-      <td><%= link_to product.name, product_path(product) %></td>
-    </tr>
-  </table>
-<% end %>
+<div class="container" id="products">
+  <div class="row">
+    <% @products.each_slice(4) do |products| %>
+      <% products.each do |product| %>
+        <div class="col-4">
+          <%= link_to product.name, product_path(product) %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<hr>

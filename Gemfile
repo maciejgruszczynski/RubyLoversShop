@@ -12,6 +12,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'turbolinks', '~> 5.2', '>= 5.2.1'
 
 group :development, :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
   gem 'factory_bot_rails'
