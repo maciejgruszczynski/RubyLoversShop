@@ -6,7 +6,11 @@ RSpec.describe Product, type: :model do
   end
 
   it "can create Product if contains valid name, description and code" do
-    expect(@product.valid?).to eql(true)
+    product = Product.new(name: "name",
+                          description: "description",
+                          code: '111111')
+
+    expect(product.valid?).to eql(true)
   end
 
   it "Product name is mandatory" do
@@ -45,8 +49,8 @@ RSpec.describe Product, type: :model do
     @product.save
 
     @product2 = Product.new(name: @product.name,
-                               description: @product.description,
-                               code: @product.code)
+                            description: @product.description,
+                            code: @product.code)
     @product2.validate
     expect(@product2.errors[:code]).to eql(["has already been taken"])
   end
