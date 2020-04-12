@@ -36,6 +36,4 @@ RSpec.describe Product, type: :model do
       is_expected.to monetize(:price)
     end
   end
-
-
 end
