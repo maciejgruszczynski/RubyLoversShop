@@ -1,7 +1,8 @@
 <h1><%= "#{@product.name} (#{@product.code})" %></h1>
 <p>
   <%= @product.description %>
-  <%= %>
+  <br>
+  Price: <%= humanized_money_with_symbol @product.price %>
 </p>
 
 <%= link_to "back", :back %>

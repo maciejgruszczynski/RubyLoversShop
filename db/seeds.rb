@@ -5,7 +5,9 @@ initial_product_code = "000000"
   Product.new(
     name: "Shirt_#{i}",
     description: "Description of shirt_#{i}",
-    code: initial_product_code.next!
+    code: initial_product_code.next!,
+    price_cents: rand(1000),
+    price_currency: "USD"
   ).save
 end
 
