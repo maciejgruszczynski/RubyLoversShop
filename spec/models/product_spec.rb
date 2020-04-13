@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
 
-  let(:product) { build(:product) }
+  let(:product) { build(:shirt) }
 
   context 'Validation' do
 
@@ -12,7 +12,6 @@ RSpec.describe Product, type: :model do
 
     it 'Product description is mandatory' do
       should validate_presence_of(:description)
-
     end
 
     it 'Product code is mandatory and has 6 characters' do
@@ -21,9 +20,6 @@ RSpec.describe Product, type: :model do
     end
 
     it 'Product code is unique' do
-      product.save
-
-      product2 = build(:product)
       should validate_uniqueness_of(:code).case_insensitive
     end
 

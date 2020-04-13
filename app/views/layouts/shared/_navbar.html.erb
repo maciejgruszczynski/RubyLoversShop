@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-light">
   <%= link_to "RubyLoversShop", root_path, class: "navbar-brand" %>
-  <%= form_tag search_products_path, method: :get, enforce_utf8: true, class: "form-inline" do %>
+  <%= form_tag search_products_path, method: :get, class: "form-inline" do %>
     <%= text_field_tag :name, params[:name], required: true, class: "form-control mr-sm-2" %>
-    <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0 enableOnInput", disabled: true %>
+    <%= submit_tag "Search", name: nil, class: "btn btn-outline-success my-2 my-sm-0" %>
   <% end %>
-</nav> 
+</nav>

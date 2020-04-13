@@ -5,7 +5,7 @@ module Products
     end
 
     def call
-      Product.where("products.name LIKE ?", "%#{sanitize_sql(@name)}%")
+      Product.where("products.name ILIKE ?", "%#{sanitize_sql(@name)}%")
     end
 
     private
