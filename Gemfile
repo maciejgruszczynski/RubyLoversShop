@@ -13,6 +13,9 @@ gem 'turbolinks', '~> 5.2', '>= 5.2.1'
 gem 'money-rails', '~>1.12'
 
 group :development, :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
   gem 'pry-rails'
 end
 

@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe 'product', type: :feature do
   before(:all) do
     @product = build(:product)
