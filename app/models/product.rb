@@ -7,5 +7,4 @@ class Product < ApplicationRecord
   def price
     Money.new(self.price_cents, self.price_currency)
   end
-
 end

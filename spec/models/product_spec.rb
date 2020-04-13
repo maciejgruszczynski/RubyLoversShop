@@ -7,15 +7,10 @@ RSpec.describe Product, type: :model do
   context 'Validation' do
 
     it 'Product name is mandatory' do
-      product.name = nil
-
       should validate_presence_of(:name)
     end
 
     it 'Product description is mandatory' do
-
-      product.description = nil
-
       should validate_presence_of(:description)
 
     end
