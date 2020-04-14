@@ -4,6 +4,8 @@ class Product < ApplicationRecord
   validates :code, presence: true, uniqueness: {case_sensitive: false}, length: { is: 6 }
   monetize :price_cents, numericality: { greater_than: 0 }
 
+  self.per_page = 10
+
   def price
     Money.new(self.price_cents, self.price_currency)
   end

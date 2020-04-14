@@ -11,6 +11,7 @@ gem 'webpacker', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'turbolinks', '~> 5.2', '>= 5.2.1'
 gem 'money-rails', '~>1.12'
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   gem 'capybara'

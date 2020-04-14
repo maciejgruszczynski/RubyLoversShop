@@ -37,6 +37,7 @@ describe 'product', type: :feature do
     click_on('Search')
 
     expect(current_path).to eql(search_products_path)
+
     within('#products') do
       expect(page).to have_content "#{@product.name}"
       expect(page).to have_content "#{@product2.name}"

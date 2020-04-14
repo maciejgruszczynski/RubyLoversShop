@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @products = Product.paginate(page: params[:page])
   end
 
   def show
@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @search_results = Products::SearchService.call(search_params)
+    @products = Products::SearchService.call(search_params).paginate(page: params[:page])
   end
 
   private

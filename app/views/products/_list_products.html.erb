@@ -1,0 +1,14 @@
+<div class="container" id="products">
+  <div class="row row-cols-4">
+    <% products.each do |product| %>
+      <div class="col card card-body">
+        <%= link_to product.name, product_path(product) %>
+        <%= humanized_money_with_symbol product.price %>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <br>
+  <%= will_paginate products %>
+</div>
+<hr>
