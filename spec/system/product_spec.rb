@@ -33,7 +33,7 @@ describe 'product', type: :feature do
     @product3.save
 
     visit '/products'
-    fill_in 'name', with: 'Shi'
+    fill_in 'q', with: 'Shi'
     click_on('Search')
 
     expect(current_path).to eql(search_products_path)
@@ -48,7 +48,7 @@ describe 'product', type: :feature do
     visit '/products'
     click_on('Search')
 
-    validation_message = page.find('#name').native.attribute('validationMessage')
+    validation_message = page.find('#q').native.attribute('validationMessage')
     expect(validation_message).to eq 'Please fill in this field.'
   end
 end

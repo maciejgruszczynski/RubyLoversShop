@@ -1,7 +1,7 @@
 module Products
   class SearchService < ApplicationService
     def initialize(search_params)
-      @name = search_params[:name]
+      @name = search_params[:q]
     end
 
     def call

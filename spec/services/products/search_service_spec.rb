@@ -7,7 +7,7 @@ describe 'ProductSearchService' do
   end
 
   it 'looks for products' do
-    search_params = {name: "Shi"}
+    search_params = {q: "Shi"}
 
     @search_results = Products::SearchService.call(search_params)
 
@@ -16,7 +16,7 @@ describe 'ProductSearchService' do
       expect(result.name).to include("Shi")
     end
 
-    search_params = {name: "shi"}
+    search_params = {q: "shi"}
 
     @search_results = Products::SearchService.call(search_params)
 
@@ -27,7 +27,7 @@ describe 'ProductSearchService' do
   end
 
   it 'looks for products if query contains special characters' do
-    search_params = {name: "%"}
+    search_params = {q: "%"}
 
     @search_results = Products::SearchService.call(search_params)
 
@@ -35,7 +35,7 @@ describe 'ProductSearchService' do
 
 
     Product.all.first.update(name: "name")
-    search_params = {name: "_"}
+    search_params = {q: "_"}
 
     @search_results = Products::SearchService.call(search_params)
 
@@ -43,7 +43,7 @@ describe 'ProductSearchService' do
   end
 
   it "looks for products if name is null" do
-    search_params = {name: ""}
+    search_params = {q: ""}
 
     @search_results = Products::SearchService.call(search_params)
 
