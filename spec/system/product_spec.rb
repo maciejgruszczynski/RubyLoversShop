@@ -18,7 +18,7 @@ describe 'product', type: :feature do
 
   it 'can display produt details' do
     visit '/products'
-    click_on("#{@product.name}")
+    click_on @product.name
 
     expect(current_path).to eql(product_path(@product))
     expect(page).to have_content "#{@product.name} (#{@product.code})"
