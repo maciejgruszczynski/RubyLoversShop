@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe 'ProductSearchService' do
   before(:all) do
-    #3.times { FactoryBot.build(:shirt).save }
     FactoryBot.create_list(:shirt, 3)
     FactoryBot.create_list(:shoes, 3)
   end
