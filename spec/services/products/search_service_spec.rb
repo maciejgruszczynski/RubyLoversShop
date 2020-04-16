@@ -77,4 +77,12 @@ describe 'ProductSearchService' do
     expect(@search_results.count).to eq 3
   end
 
+  it "finds products that sounds similar" do
+    search_params = {q: "shert"}
+
+    @search_results = Products::SearchService.new.call(search_params)
+
+    expect(@search_results.count).to eq 3
+  end
+
 end

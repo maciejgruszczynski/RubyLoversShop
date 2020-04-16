@@ -8,7 +8,8 @@ class Product < ApplicationRecord
     tsearch: {
         any_word: true,
         prefix: true
-    }
+    },
+    dmetaphone: {}
   }
 
   validates :name, presence: true
