@@ -1,13 +1,9 @@
 class AddTrigramExtension < ActiveRecord::Migration[6.0]
   def up
-    execute <<-SQL
-      CREATE EXTENSION IF NOT EXISTS pg_trgm;
-    SQL
+    enable_extension "pg_trgm"
   end
 
   def down
-    execute <<-SQL
-      DROP EXTENSION IF EXISTS pg_trgm;
-    SQL
+    disable_extension "pg_trgm"
   end
 end

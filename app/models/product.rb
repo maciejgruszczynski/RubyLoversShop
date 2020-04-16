@@ -1,9 +1,9 @@
 class Product < ApplicationRecord
   include PgSearch::Model
-  
+
   pg_search_scope :search_by_name, against: :name, using: {
     trigram: {
-      threshold: 0.3
+      threshold: 0.2
     },
     tsearch: {
         any_word: true,

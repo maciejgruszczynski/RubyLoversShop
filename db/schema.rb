@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_001242) do
+ActiveRecord::Schema.define(version: 2020_04_16_080952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_04_16_001242) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
+    t.index ["name"], name: "index_products_on_name"
   end
 
 end

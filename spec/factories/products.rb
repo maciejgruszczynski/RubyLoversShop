@@ -8,8 +8,8 @@ FactoryBot.define do
       price_currency { 'USD' }
     end
 
-    factory :shoes do
-      sequence(:name) { |n| "Shoes_#{n}" }
+    factory :pants do
+      sequence(:name) { |n| "Pant_#{n}" }
       description { 'description' }
       sequence(:code, (200000..200100).cycle) {|n| n}
       price_cents { 1000 }

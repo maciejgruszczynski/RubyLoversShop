@@ -2,8 +2,7 @@ require 'rails_helper'
 
 describe 'product', type: :feature do
   before(:all) do
-    @product = FactoryBot.build(:shirt)
-    @product.save
+    @product = FactoryBot.create(:shirt)
   end
 
   it 'shows list of products' do
@@ -27,10 +26,8 @@ describe 'product', type: :feature do
   end
 
   it 'can search for products' do
-    @product2 = FactoryBot.build(:shirt)
-    @product2.save
-    @product3 = FactoryBot.build(:shoes)
-    @product3.save
+    @product2 = FactoryBot.create(:shirt)
+    @product3 = FactoryBot.create(:pants)
 
     visit '/products'
     fill_in 'q', with: 'Shi'

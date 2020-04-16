@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'ProductSearchService' do
   before(:all) do
     FactoryBot.create_list(:shirt, 3)
-    FactoryBot.create_list(:shoes, 3)
+    FactoryBot.create_list(:pants, 3)
   end
 
   it 'looks for products - product name with lower case' do
@@ -45,11 +45,36 @@ describe 'ProductSearchService' do
     expect(@search_results.count).to eq 0
   end
 
-  it "looks for products if name is null" do
+  it "finds no products if name is null" do
     search_params = {q: ""}
 
     @search_results = Products::SearchService.new.call(search_params)
 
     expect(@search_results.count).to eq 0
   end
+
+  it "finds products if 1 letter is omitted" do
+    search_params = {q: "Shrt"}
+
+    @search_results = Products::SearchService.new.call(search_params)
+
+    expect(@search_results.count).to eq 3
+  end
+
+  it "finds products if 2 letters are omitted" do
+    search_params = {q: "Shr"}
+
+    @search_results = Products::SearchService.new.call(search_params)
+
+    expect(@search_results.count).to eq 3
+  end
+
+  it "finds products if only 2 first letters are given" do
+    search_params = {q: "pa"}
+
+    @search_results = Products::SearchService.new.call(search_params)
+
+    expect(@search_results.count).to eq 3
+  end
+
 end
