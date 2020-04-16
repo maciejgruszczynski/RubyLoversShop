@@ -42,7 +42,7 @@ describe 'ProductSearchService' do
 
     @search_results = Products::SearchService.new.call(search_params)
 
-    expect(@search_results.count).to eq 5
+    expect(@search_results.count).to eq 0
   end
 
   it "looks for products if name is null" do
@@ -50,6 +50,6 @@ describe 'ProductSearchService' do
 
     @search_results = Products::SearchService.new.call(search_params)
 
-    expect(@search_results.count).to eq 6
+    expect(@search_results.count).to eq 0
   end
 end
