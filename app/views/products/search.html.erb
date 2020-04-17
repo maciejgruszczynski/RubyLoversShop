@@ -1,2 +1,10 @@
 Number of products found: <%= @products.count %>
-<%= render 'list_products', products: @products if @products.count > 0  %>
+<div class="container" id="products">
+  <div class="row row-cols-4">
+    <%= render @products %>
+  </div>
+  <br>
+  <br>
+  <%= will_paginate @products %>
+</div>
+<hr>

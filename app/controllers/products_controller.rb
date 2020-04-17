@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = Products::SearchService.new.call(search_params).paginate(page: params[:page])
+    @products = Product.search_by_name(search_params[:q]).paginate(page: params[:page])
   end
 
   private

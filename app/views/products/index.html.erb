@@ -1,1 +1,9 @@
-<%= render 'list_products', products: @products %>
+<div class="container" id="products">
+  <div class="row row-cols-4">
+    <%= render @products %>
+  </div>
+  <br>
+  <br>
+  <%= will_paginate @products %>
+</div>
+<hr>

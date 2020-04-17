@@ -4,9 +4,9 @@ module ApplicationHelper
       options, collection_or_options = collection_or_options, nil
     end
     unless options[:renderer]
-      options = options.merge :renderer => BootstrapRenderer
+      options = options.merge renderer: BootstrapRenderer
     end
-    super *[collection_or_options, options].compact
+    super(*[collection_or_options, options]).compact
   end
 
   class BootstrapRenderer < WillPaginate::ActionView::LinkRenderer
@@ -18,7 +18,7 @@ module ApplicationHelper
 
     def page_number(page)
       tag :li, link(page, page, rel: rel_value(page), class: 'page-link'),
-        class: (page == current_page ? 'page-item active': 'page-item')
+        class: (page == current_page ? 'page-item active' : 'page-item')
     end
 
     def previous_or_next_page(page, text, classname)
