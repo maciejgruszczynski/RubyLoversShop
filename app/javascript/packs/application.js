@@ -5,6 +5,7 @@
 
 require("@rails/ujs").start()
 require("turbolinks").start()
+require("jquery")
 
 import "bootstrap"
 import "../stylesheets/application"
