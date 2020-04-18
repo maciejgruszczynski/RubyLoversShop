@@ -30,46 +30,46 @@ describe Product, type: :model do
     let!(:shirts) { create_list(:product, 3, :shirt) }
     let!(:pants) { create_list(:product, 3, :pants) }
 
-    subject(:search_results) { Product.search_by_name(name) }
+    subject(:search_results) { Product.search_by_name(name).count }
 
     context "product name with lower case" do
       let(:name) { 'shi' }
-      it { expect(search_results.count).to eq 3 }
+      it { is_expected.to eq 3 }
     end
 
     context "product name with upper case" do
       let(:name) { 'SHI' }
-      it { expect(search_results.count).to eq 3 }
+      it { is_expected.to eq 3 }
     end
 
     context "product name contains %" do
       let(:name) { '%' }
-      it { expect(search_results.count).to eq 0 }
+      it { is_expected.to eq 0 }
     end
 
     context "product name contains _" do
       let(:name) { '_' }
-      it { expect(search_results.count).to eq 0 }
+      it { is_expected.to eq 0 }
     end
 
     context "product name is null" do
       let(:name) { '' }
-      it { expect(search_results.count).to eq 0 }
+      it { is_expected.to eq 0 }
     end
 
     context "1 letter is omitted in product name" do
       let(:name) { 'Shrt' }
-      it { expect(search_results.count).to eq 3 }
+      it { is_expected.to eq 3 }
     end
 
     context "only 2 first letters of name are given" do
       let(:name) { 'pa' }
-      it { expect(search_results.count).to eq 3 }
+      it { is_expected.to eq 3 }
     end
 
     context "Product name that sounds similar" do
       let(:name) { 'shert' }
-      it { expect(search_results.count).to eq 3 }
+      it { is_expected.to eq 3 }
     end
   end
 end
