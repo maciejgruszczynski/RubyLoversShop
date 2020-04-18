@@ -16,7 +16,6 @@ gem 'pg_search', '~> 2.3', '>= 2.3.2'
 
 group :development, :test do
   gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'pry-rails'
 end
