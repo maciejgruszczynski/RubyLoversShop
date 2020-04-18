@@ -6,7 +6,7 @@ module ApplicationHelper
     unless options[:renderer]
       options = options.merge renderer: BootstrapRenderer
     end
-    super(*[collection_or_options, options]).compact
+    super *[collection_or_options, options].compact
   end
 
   class BootstrapRenderer < WillPaginate::ActionView::LinkRenderer
