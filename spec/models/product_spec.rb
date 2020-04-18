@@ -1,9 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Product, type: :model do
-
-  context 'Validation' do
-    let(:product) { build(:shirt) }
+describe Product, type: :model do
+  describe "validation" do
+    let(:shirt) { build(:product, :shirt) }
 
     it 'Product name is mandatory' do
       should validate_presence_of(:name)
@@ -27,60 +26,50 @@ RSpec.describe Product, type: :model do
     end
   end
 
-  context 'Search' do
-    let!(:shirts) { create_list(:shirt, 3) }
-    let!(:pants) { create_list(:pants, 3) }
+  describe "Search" do
+    let!(:shirts) { create_list(:product, 3, :shirt) }
+    let!(:pants) { create_list(:product, 3, :pants) }
 
-    subject(:search_results) { Product.search_by_name(@name) }
+    subject(:search_results) { Product.search_by_name(name) }
 
-    it 'looks for products - product name with lower case' do
-      @name = 'Shi'
-
-      expect(search_results.count).to eq 3
+    context "product name with lower case" do
+      let(:name) { 'shi' }
+      it { expect(search_results.count).to eq 3 }
     end
 
-    it 'looks for products - product name with upper case' do
-      @name = "SHI"
-
-      expect(search_results.count).to eq 3
+    context "product name with upper case" do
+      let(:name) { 'SHI' }
+      it { expect(search_results.count).to eq 3 }
     end
 
-    it 'looks for products if query contains % ' do
-      @name = "%"
-
-      expect(search_results.count).to eq 0
+    context "product name contains %" do
+      let(:name) { '%' }
+      it { expect(search_results.count).to eq 0 }
     end
 
-    it 'looks for products if query contains _ ' do
-      Product.first.update(name: "name")
-
-      @name = "_"
-
-      expect(search_results.count).to eq 0
+    context "product name contains _" do
+      let(:name) { '_' }
+      it { expect(search_results.count).to eq 0 }
     end
 
-    it "finds no products if name is null" do
-      @name = ""
-
-      expect(search_results.count).to eq 0
+    context "product name is null" do
+      let(:name) { '' }
+      it { expect(search_results.count).to eq 0 }
     end
 
-    it "finds products if 1 letter is omitted" do
-      @name = "Shrt"
-
-      expect(search_results.count).to eq 3
+    context "1 letter is omitted in product name" do
+      let(:name) { 'Shrt' }
+      it { expect(search_results.count).to eq 3 }
     end
 
-    it "finds products if only 2 first letters are given" do
-      @name = "pa"
-
-      expect(search_results.count).to eq 3
+    context "only 2 first letters of name are given" do
+      let(:name) { 'pa' }
+      it { expect(search_results.count).to eq 3 }
     end
 
-    it "finds products that sounds similar" do
-      @name = "shert"
-
-      expect(search_results.count).to eq 3
+    context "Product name that sounds similar" do
+      let(:name) { 'shert' }
+      it { expect(search_results.count).to eq 3 }
     end
   end
 end

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'product', type: :feature do
 
   context "display products" do
-    let!(:shirt) { create(:shirt) }
+    let!(:shirt) { create(:product, :shirt) }
 
     it 'shows list of products' do
       visit '/products'
@@ -27,7 +27,7 @@ describe 'product', type: :feature do
   end
 
   context "pagination" do
-    let!(:shirts) { create_list(:shirt, 20) }
+    let!(:shirts) { create_list(:product, 20, :shirt) }
 
     it 'can display pagination on index page if > 10 products' do
       visit '/products'
@@ -45,8 +45,8 @@ describe 'product', type: :feature do
   end
 
   context "search for products" do
-    let!(:shirts) { create_list(:shirt, 3) }
-    let!(:pants) { create_list(:pants, 3) }
+    let!(:shirts) { create_list(:product, 3, :shirt) }
+    let!(:pants) { create_list(:product, 3, :pants) }
 
     it 'can search for products' do
       visit '/products'
@@ -57,7 +57,7 @@ describe 'product', type: :feature do
 
       within('#products') do
         shirts.each { |shirt| expect(page).to have_content shirt.name }
-        pants.each { |pant| expect(page).to have_no_content pant.name}
+        pants.each { |pants| expect(page).to have_no_content pants.name}
       end
     end
 
