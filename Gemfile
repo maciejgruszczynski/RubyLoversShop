@@ -15,8 +15,6 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'pg_search', '~> 2.3', '>= 2.3.2'
 
 group :development, :test do
-  gem 'capybara'
-  gem 'webdrivers'
   gem 'pry-rails'
 end
 

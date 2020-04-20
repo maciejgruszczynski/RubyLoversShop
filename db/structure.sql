@@ -110,8 +110,6 @@ ALTER SEQUENCE public.cart_items_id_seq OWNED BY public.cart_items.id;
 CREATE TABLE public.carts (
     id bigint NOT NULL,
     identifier text,
-    value_cents integer DEFAULT 0 NOT NULL,
-    value_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );

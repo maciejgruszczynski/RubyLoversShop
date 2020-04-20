@@ -2,7 +2,6 @@ class ShoppingCart < ActiveRecord::Migration[6.0]
   def change
     create_table :carts do |t|
       t.text :identifier
-      t.monetize :value
 
       t.timestamps
     end

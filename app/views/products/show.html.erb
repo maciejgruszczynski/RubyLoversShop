@@ -3,6 +3,10 @@
   <%= @product.description %>
   <br>
   Price: <%= humanized_money_with_symbol @product.price %>
+  <%= form_with url: add_to_cart_product_path(@product), method: :post do |form| %>
+    <%= form.select :quantity, [1,2,3,4,5,6,7,8,9,10] %>
+    <%= form.submit("Add to cart", name: nil) %>
+  <% end %>
 </p>
 
 <%= link_to "back", :back %>

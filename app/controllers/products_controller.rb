@@ -4,17 +4,47 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
     @disabled_sidebar = true
+    @product = Product.find(params[:id])
   end
 
   def search
     @products = Product.search_by_name(search_params[:q]).paginate(page: params[:page])
   end
 
+  def add_to_cart
+    cart = AddToCartService.new.call(@cart, add_to_cart_params)
+    set_cart(cart) if @cart.new_record?
+    cart.validate_items_count
+    if cart.errors.any?
+      redirect_to product_path(params[:id])
+      flash[:notice] = cart.errors.full_messages
+    else
+      redirect_to cart_path(@cart)
+    end
+
+    puts @cart.errors
+  end
+
+  def remove_from_cart
+    RemoveFromCartService.new.call(@cart, remove_product_params)
+    redirect_to cart_path(@cart)
+  end
+
   private
 
   def search_params
     params.permit(:q)
+  end
+
+  def add_to_cart_params
+    params.permit(:id, :quantity)
+  end
+
+  def remove_product_params
+    params.permit(:id)
+  end
+
+  def update_in_cart_params
   end
 end
