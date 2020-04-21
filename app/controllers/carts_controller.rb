@@ -24,6 +24,11 @@ class CartsController < ApplicationController
     redirect_to cart_path(@current_cart)
   end
 
+  def remove_from_cart
+    RemoveProduct.new.call(@current_cart, remove_from_cart_params)
+    redirect_to cart_path(@current_cart)
+  end
+
   private
 
   def add_params
@@ -32,5 +37,9 @@ class CartsController < ApplicationController
 
   def update_params
     params.permit(:id, items: {})
+  end
+
+  def remove_from_cart_params
+    params.permit(:id)
   end
 end

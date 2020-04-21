@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :carts, only: [:show, :update] do
     member do
       post :add_to_cart
+      delete :remove_from_cart
     end
   end
 

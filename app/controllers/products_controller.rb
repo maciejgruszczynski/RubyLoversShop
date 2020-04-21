@@ -26,11 +26,6 @@ class ProductsController < ApplicationController
     puts @cart.errors
   end
 
-  def remove_from_cart
-    RemoveFromCartService.new.call(@cart, remove_product_params)
-    redirect_to cart_path(@cart)
-  end
-
   private
 
   def search_params
@@ -39,12 +34,5 @@ class ProductsController < ApplicationController
 
   def add_to_cart_params
     params.permit(:id, :quantity)
-  end
-
-  def remove_product_params
-    params.permit(:id)
-  end
-
-  def update_in_cart_params
   end
 end
