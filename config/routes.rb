@@ -10,7 +10,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :carts, only: [:show, :create, :update]
+  resources :carts, only: [:show, :update] do
+    member do
+      post :add_to_cart
+    end
+  end
 
   root to: "products#index"
 

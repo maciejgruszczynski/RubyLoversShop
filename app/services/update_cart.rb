@@ -1,4 +1,4 @@
-class UpdateItemsInCartService
+class UpdateCart
   def call(cart, params)
     #binding.pry
     cart = cart
