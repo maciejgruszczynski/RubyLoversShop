@@ -13,12 +13,12 @@
       </tr>
     </thead>
     <tbody>
-      <% @current_cart.items.each_with_index do |item, index| %>
+      <% @current_cart.items.each.with_index(1) do |item, index| %>
         <%= fields_for "items[]", item do |f| %>
         <tr>
-          <td><%= index + 1 %></td>
+          <td><%= index %></td>
           <td><%= link_to item.product_name, product_path(item.product_id) %></td>
-          <td><%= f.select :quantity, options_for_select([1,2,3,4,5], item.quantity)%></td>
+          <td><%= f.select :quantity, options_for_select(1..10, item.quantity)%></td>
             <td><%= humanized_money_with_symbol item.unit_price %></td>
           <td><%= humanized_money_with_symbol item.final_price %></td>
           <td><%= link_to "Remove from cart", remove_from_cart_cart_path(item.id), method: :delete %></td>
@@ -28,6 +28,7 @@
     </tbody>
   </table>
   <%= form.submit("Update", name: false) %>
+  <%= link_to "Clean cart", clean_cart_cart_path(@current_cart.id), method: :post, class: "btn btn-outline-dark btn-sm" %>
 <% end %>
 
 

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     member do
       post :add_to_cart
       delete :remove_from_cart
+      post :clean_cart
     end
   end
 

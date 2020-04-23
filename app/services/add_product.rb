@@ -3,8 +3,12 @@ class AddProduct
     product = Product.find(params[:id])
     quantity = params[:quantity].to_i
 
-    update_cart_item(cart, product, quantity) if product_in_cart?(cart, product)
-    add_new_item(cart, product, quantity) if product_not_in_cart?(cart, product)
+    if max_items_count_not_exceded?(cart)
+      update_cart_item(cart, product, quantity) if product_in_cart?(cart, product)
+      add_new_item(cart, product, quantity) if product_not_in_cart?(cart, product)
+    else
+      cart.errors.add(:items, 'max 10 items allowed')
+    end
     cart
   end
 
@@ -44,5 +48,11 @@ class AddProduct
 
   def product_in_cart?(cart, product)
     cart.items.select {|e| e.product_id == product.id}.any?
+  end
+
+  def max_items_count_not_exceded?(cart)
+    if cart.items.count == Cart::MAX_ITEMS
+      false
+    end
   end
 end
