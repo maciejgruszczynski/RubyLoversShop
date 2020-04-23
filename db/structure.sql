@@ -240,6 +240,13 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: index_carts_on_identifier; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_carts_on_identifier ON public.carts USING btree (identifier);
+
+
+--
 -- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -274,6 +281,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200416001242'),
 ('20200416080952'),
 ('20200416121140'),
-('20200417232543');
+('20200417232543'),
+('20200422204830');
 
 

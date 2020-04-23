@@ -1,7 +1,7 @@
 class CartItem < ApplicationRecord
   belongs_to :cart
 
-  validates :quantity, numericality: { less_than_or_equal_to: 5}
+  validates :quantity, numericality: { less_than_or_equal_to: Cart::MAX_ITEM_OCCURENCES}
   #validate :validate_max_items
 
   def unit_price

@@ -10,7 +10,15 @@ class Cart < ApplicationRecord
                          uniqueness: true,
                          length: { is: 8 }
 
-  #validates_associated :cart_item
+  def has_no_errors?
+    errors.empty? && items.select {|i| i.errors.any? }.empty?
+  end
+
+  def all_errors
+    Array.new << errors.full_messages << items.map {|i| i.errors.full_messages if i.errors}
+  end
+
+  validates_associated :cart_item
 
   #def validate_items_count
   #  if items.map { |e| e.quantity }.sum > 10

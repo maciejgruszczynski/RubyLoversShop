@@ -4,17 +4,14 @@ class CartsController < ApplicationController
   end
 
   def add_to_cart
-    cart_param = add_params[:cart_id]
-    cart = cart_param.empty? ? CreateCart.new.call : Cart.find(cart_param)
-    session[:cart] = cart.identifier
-    cart = AddProduct.new.call(cart, add_params)
-    if cart.items.select {|i| i.errors.any? }.empty?
-      redirect_to cart_path(cart)
+    setup_new_cart if @current_cart.new_record?
+    AddProduct.new.call(@current_cart, add_params)
+binding.pry
+    if @current_cart.has_no_errors?
+      redirect_to cart_path(@current_cart)
     else
-      errors = []
-      cart.items.each {|i| errors << i.errors.full_messages if i.errors.any? }
       redirect_to product_path(add_params[:id])
-      flash[:notice] = errors
+      flash[:notice] = @current_cart.all_errors
     end
   end
 
@@ -41,5 +38,10 @@ class CartsController < ApplicationController
 
   def remove_from_cart_params
     params.permit(:id)
+  end
+
+  def setup_new_cart
+    @current_cart.save
+    session[:cart] = @current_cart.identifier
   end
 end

@@ -3,8 +3,8 @@ class AddProduct
     product = Product.find(params[:id])
     quantity = params[:quantity].to_i
 
-    cart = update_cart_item(cart, product, quantity) if product_in_cart?(cart, product)
-    cart = add_new_item(cart, product, quantity) if product_not_in_cart?(cart, product)
+    update_cart_item(cart, product, quantity) if product_in_cart?(cart, product)
+    add_new_item(cart, product, quantity) if product_not_in_cart?(cart, product)
     cart
   end
 
@@ -24,14 +24,18 @@ class AddProduct
       final_price_currency: product.price_currency)
 
     cart.items << item
-    cart
   end
 
   def update_cart_item(cart, product, quantity)
     item = cart.items.find_by(product_id: product.id)
-    item.update(quantity: item.quantity + quantity, final_price_cents: item.final_price_cents + (quantity * product.price_cents))
-    cart.reload
-    cart
+    new_quantity = item.quantity + quantity
+    new_final_price_cents = item.final_price_cents + (quantity * product.price_cents)
+    if item.update(quantity: new_quantity, final_price_cents: new_final_price_cents)
+      cart
+    else
+      cart.errors.add(:item, "Max number of items: #{Cart::MAX_ITEM_OCCURENCES}")
+      cart
+    end
   end
 
   def product_not_in_cart?(cart, product)
