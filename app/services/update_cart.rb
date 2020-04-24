@@ -14,6 +14,7 @@ class UpdateCart
         cart.errors.add(:item, "Max number of items: #{Cart::MAX_ITEM_OCCURENCES}")
       end
     end
+    cart
   end
 
   def new_quantity_valid?(quantity)

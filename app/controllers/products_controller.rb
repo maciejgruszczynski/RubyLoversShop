@@ -20,6 +20,6 @@ class ProductsController < ApplicationController
   end
 
   def set_cart_item
-  @cart_item = @current_cart.items.where(product_id: params[:id]).first_or_initialize
+    @cart_item = @current_cart.items.where(product_id: params[:id]).first_or_initialize
   end
 end

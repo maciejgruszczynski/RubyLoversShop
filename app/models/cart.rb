@@ -10,7 +10,7 @@ class Cart < ApplicationRecord
                          uniqueness: true,
                          length: { is: 8 }
 
-  def has_no_errors?
+  def success?
     errors.empty? && items.select {|i| i.errors.any? }.empty?
   end
 

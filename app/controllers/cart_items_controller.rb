@@ -3,7 +3,7 @@ class CartItemsController < ApplicationController
     setup_new_cart
     result = AddProduct.new.call(@current_cart, cart_item_params)
 
-    if result.has_no_errors?
+    if result.success?
       redirect_to cart_path(@current_cart)
     else
       redirect_to product_path(add_params[:product_id])
@@ -14,7 +14,7 @@ class CartItemsController < ApplicationController
   def update
     result = UpdateProduct.new.call(@current_cart, cart_item_params)
 
-    if result.has_no_errors?
+    if result.success?
       redirect_to cart_path(@current_cart)
     else
       redirect_to product_path(cart_item_params[:product_id])

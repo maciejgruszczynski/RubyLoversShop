@@ -6,7 +6,7 @@ class CartsController < ApplicationController
   def update
     result = UpdateCart.new.call(@current_cart, update_params)
     redirect_to cart_path(@current_cart)
-    if @current_cart.has_no_errors?
+    if result.success?
       flash[:notice] = "Cart updated"
     else
       flash[:notice] = @current_cart.all_errors
@@ -21,9 +21,6 @@ class CartsController < ApplicationController
 
   private
 
-  def add_params
-    params.permit(:id, :quantity, :cart_id)
-  end
 
   def update_params
     params.permit(:id, items: {})
