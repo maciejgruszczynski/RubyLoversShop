@@ -187,6 +187,3 @@ Style/NilComparison:
 
 Style/NonNilCheck:
   Enabled: true
-
-Documentation:
-  Enabled: false

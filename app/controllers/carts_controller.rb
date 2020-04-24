@@ -3,27 +3,14 @@ class CartsController < ApplicationController
     redirect_to root_path if @current_cart.new_record?
   end
 
-  def add_to_cart
-    setup_new_cart if @current_cart.new_record?
-    AddProduct.new.call(@current_cart, add_params)
-
+  def update
+    result = UpdateCart.new.call(@current_cart, update_params)
+    redirect_to cart_path(@current_cart)
     if @current_cart.has_no_errors?
-      redirect_to cart_path(@current_cart)
+      flash[:notice] = "Cart updated"
     else
-      redirect_to product_path(add_params[:id])
       flash[:notice] = @current_cart.all_errors
     end
-  end
-
-  def update
-    UpdateCart.new.call(@current_cart, update_params)
-    redirect_to cart_path(@current_cart)
-    flash[:notice] = @current_cart.all_errors
-  end
-
-  def remove_from_cart
-    RemoveProduct.new.call(@current_cart, params)
-    redirect_to cart_path(@current_cart)
   end
 
   def clean_cart

@@ -12,11 +12,11 @@ Rails.application.routes.draw do
 
   resources :carts, only: [:show, :update] do
     member do
-      post :add_to_cart
-      delete :remove_from_cart
       post :clean_cart
     end
   end
+
+  resources :cart_items, only: [:create, :update, :destroy]
 
   root to: "products#index"
 

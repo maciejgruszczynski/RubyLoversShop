@@ -14,10 +14,6 @@ class Cart < ApplicationRecord
     errors.empty? && items.select {|i| i.errors.any? }.empty?
   end
 
-  def has_errors?
-    errors.present? && items.select {|i| i.errors.any? }.present?
-  end
-
   def all_errors
     Array.new << errors.full_messages << items.map {|i| i.errors.full_messages if i.errors}
   end
