@@ -1,14 +1,15 @@
 class AddProduct
+  include Dry::Monads[:result]
+
   def call(cart, params)
     product = Product.find(params[:product_id])
     quantity = params[:quantity].to_i
 
-    if max_items_count_not_exceded?(cart)
-      add_new_item(cart, product, quantity)
-    else
-      cart.errors.add(:items, 'max 10 items allowed')
-    end
-    cart
+    return Failure(message: "Max quantity exceeded (you cannot add more then #{Cart::MAX_ITEM_OCCURENCES} items") if quantity_invalid?(quantity)
+
+    return Failure(message:'max 10 items allowed') if max_items_count_exceded?(cart)
+
+    return Success(cart) if add_new_item(cart, product, quantity)
   end
 
   private
@@ -29,9 +30,11 @@ class AddProduct
     cart.items << item
   end
 
-  def max_items_count_not_exceded?(cart)
-    if cart.items.count <= Cart::MAX_ITEMS
-      true
-    end
+  def quantity_invalid?(quantity)
+    true if quantity > Cart::MAX_ITEM_OCCURENCES
+  end
+
+  def max_items_count_exceded?(cart)
+    true if cart.items.count >= Cart::MAX_ITEMS
   end
 end

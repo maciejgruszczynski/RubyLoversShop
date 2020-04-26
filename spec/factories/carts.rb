@@ -1,11 +1,17 @@
 FactoryBot.define do
   factory(:cart) do
-    sequence(:identifier, (100000..100100).cycle) {|n| n}
-    value_cents { 0 }
-    value_currency { 'USD' }
+    identifier { 'ABCDEFGA' }
+  end
 
-    trait :not_empty do
-      value_cents { 1000 }
-    end
+  trait :full_cart do
+    identifier { '11111111' }
+
+    after(:create) { |cart| create_list(:cart_item, 10, cart: cart) }
+  end
+
+  trait :cart_with_products do
+    identifier { '11111111' }
+
+    after(:create) { |cart| create_list(:cart_item, 2, cart: cart) }
   end
 end

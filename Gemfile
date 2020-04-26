@@ -13,6 +13,8 @@ gem 'turbolinks', '~> 5.2', '>= 5.2.1'
 gem 'money-rails', '~>1.12'
 gem 'will_paginate', '~> 3.1.0'
 gem 'pg_search', '~> 2.3', '>= 2.3.2'
+gem 'dry-monads', '~> 1.3', '>= 1.3.5'
+
 
 group :development, :test do
   gem 'pry-rails'
@@ -36,6 +38,7 @@ group :test do
   gem 'rspec-rails', '~> 4.0.0'
   gem 'factory_bot_rails'
   gem 'shoulda-matchers'
+  gem 'rack_session_access', '~> 0.2.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

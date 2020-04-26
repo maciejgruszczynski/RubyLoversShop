@@ -9,12 +9,4 @@ class Cart < ApplicationRecord
   validates :identifier, presence: true,
                          uniqueness: true,
                          length: { is: 8 }
-
-  def success?
-    errors.empty? && items.select {|i| i.errors.any? }.empty?
-  end
-
-  def all_errors
-    Array.new << errors.full_messages << items.map {|i| i.errors.full_messages if i.errors}
-  end
 end

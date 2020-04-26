@@ -9,7 +9,7 @@ class CartsController < ApplicationController
     if result.success?
       flash[:notice] = "Cart updated"
     else
-      flash[:notice] = @current_cart.all_errors
+      flash[:notice] = result.failure[:message]
     end
   end
 

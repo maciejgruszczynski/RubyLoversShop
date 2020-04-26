@@ -6,9 +6,9 @@
   <%= form_with model: @cart_item do |form| %>
     <%= form.hidden_field :cart_identifier, value: @current_cart.identifier %>
     <%= form.hidden_field :product_id, value: @product.id %>
-    <%= form.select :quantity, (1..10) %>
+    <%= form.select :quantity, (1..5) %>
     <%= form.submit("Add to cart", name: nil) %>
   <% end %>
-</p>  
+</p>
 
 <%= link_to "back", :back %>

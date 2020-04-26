@@ -6,8 +6,8 @@ class CartItemsController < ApplicationController
     if result.success?
       redirect_to cart_path(@current_cart)
     else
-      redirect_to product_path(add_params[:product_id])
-      flash[:notice] = @current_cart.all_errors
+      redirect_to product_path(cart_item_params[:product_id])
+      flash[:notice] = result.failure[:message]
     end
   end
 
@@ -18,7 +18,7 @@ class CartItemsController < ApplicationController
       redirect_to cart_path(@current_cart)
     else
       redirect_to product_path(cart_item_params[:product_id])
-      flash[:notice] = @current_cart.all_errors
+      flash[:notice] = result.failure[:message]
     end
   end
 
