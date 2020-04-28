@@ -27,7 +27,6 @@ class CartItemsController < ApplicationController
     @cart_item.delete
     redirect_to cart_path(@current_cart)
     flash[:notice] = "Product has been removed from cart"
-
   end
 
   private
