@@ -11,21 +11,21 @@ describe 'UpdateCart' do
     describe "all new quantities are correct" do
       context "no errors expected" do
         let(:quantity) { 2 }
-        subject(:update_cart) {UpdateCart.new.call(cart, cart_item_params).success?}
+        subject(:update_cart) { UpdateCart.new.call(cart, cart_item_params).success? }
 
         it { is_expected.to eq true }
       end
 
       context "new items quantities in cart expected" do
         let(:quantity) { 2 }
-        subject(:update_cart) {UpdateCart.new.call(cart, cart_item_params).success.items.where(product_id: first_product_id).first.quantity }
+        subject(:update_cart) { UpdateCart.new.call(cart, cart_item_params).success.items.where(product_id: first_product_id).first.quantity }
 
         it { is_expected.to eq 2 }
       end
 
       context "new final_price_cents expeted" do
         let(:quantity) { 2 }
-        subject(:update_cart) {UpdateCart.new.call(cart, cart_item_params).success.items.where(product_id: first_product_id).first.final_price_cents }
+        subject(:update_cart) { UpdateCart.new.call(cart, cart_item_params).success.items.where(product_id: first_product_id).first.final_price_cents }
 
         it { is_expected.to eq 2000 }
       end
@@ -34,7 +34,7 @@ describe 'UpdateCart' do
     describe "new quantities are not correct" do
       context "failure expected" do
         let(:quantity) { 6 }
-        subject(:update_cart) {UpdateCart.new.call(cart, cart_item_params).failure?}
+        subject(:update_cart) { UpdateCart.new.call(cart, cart_item_params).failure? }
 
         it { is_expected.to eq true }
       end

@@ -9,28 +9,28 @@ describe 'UpdateProduct' do
     describe "cart with products" do
       context "1 product - no errors expected" do
         let(:quantity) { 1 }
-        subject(:add_product) {UpdateProduct.new.call(cart, cart_item_params).success?}
+        subject(:add_product) { UpdateProduct.new.call(cart, cart_item_params).success? }
 
         it { is_expected.to eq true }
       end
 
       context "1 product - 2 items in cart expected" do
         let(:quantity) { 1 }
-        subject(:add_product) {UpdateProduct.new.call(cart, cart_item_params).success.items.where(product_id: product_id).first.quantity }
+        subject(:add_product) { UpdateProduct.new.call(cart, cart_item_params).success.items.where(product_id: product_id).first.quantity }
 
         it { is_expected.to eq 2 }
       end
 
       context "6 products - errors expected" do
         let(:quantity) { 6 }
-        subject(:add_product) {UpdateProduct.new.call(cart, cart_item_params).success?}
+        subject(:add_product) { UpdateProduct.new.call(cart, cart_item_params).success? }
 
         it { is_expected.to eq false }
       end
 
       context "Saved cart item has correct final price" do
         let(:quantity) { 4 }
-        subject(:add_product) {UpdateProduct.new.call(cart, cart_item_params).success.items.where(product_id: product_id).first.final_price_cents }
+        subject(:add_product) { UpdateProduct.new.call(cart, cart_item_params).success.items.where(product_id: product_id).first.final_price_cents }
 
         it { is_expected.to eq 5000 }
       end

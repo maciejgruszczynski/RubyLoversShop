@@ -5,7 +5,7 @@ describe 'CleanCart' do
 
     context "clan existing cart" do
       let(:full_cart) { create(:cart, :full_cart) }
-      subject(:clean_cart) {CleanCart.new.call(full_cart).items.any?}
+      subject(:clean_cart) { CleanCart.new.call(full_cart).items.any? }
 
       it { is_expected.to eq false }
     end
