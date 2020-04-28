@@ -23,6 +23,6 @@ class UpdateProduct
 
   def quantity_invalid?(cart, product, quantity)
     current_quantity = cart.items.select {|i| i.product_id = product.id}.first.quantity
-    true if current_quantity + quantity > Cart::MAX_ITEM_OCCURENCES
+    current_quantity + quantity > Cart::MAX_ITEM_OCCURENCES
   end
 end

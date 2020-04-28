@@ -31,10 +31,10 @@ class AddProduct
   end
 
   def quantity_invalid?(quantity)
-    true if quantity > Cart::MAX_ITEM_OCCURENCES
+    quantity > Cart::MAX_ITEM_OCCURENCES
   end
 
   def max_items_count_exceded?(cart)
-    true if cart.items.count >= Cart::MAX_ITEMS
+    cart.items.count >= Cart::MAX_ITEMS
   end
 end

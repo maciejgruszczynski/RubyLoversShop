@@ -20,6 +20,6 @@ class UpdateCart
   end
 
   def all_quantities_valid?(items)
-    true if items.values.all? { |v| v[:quantity].to_i <= Cart::MAX_ITEM_OCCURENCES }
+    items.values.all? { |v| v[:quantity].to_i <= Cart::MAX_ITEM_OCCURENCES }
   end
 end
