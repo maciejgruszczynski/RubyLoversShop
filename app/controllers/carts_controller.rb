@@ -4,7 +4,8 @@ class CartsController < ApplicationController
   end
 
   def update
-    result = UpdateCart.new.call(@current_cart, update_params)
+    result = UpdateCart.new.call(cart: @current_cart, items: update_params[:items])
+    
     redirect_to cart_path(@current_cart)
     if result.success?
       flash[:notice] = "Cart updated"
@@ -14,7 +15,7 @@ class CartsController < ApplicationController
   end
 
   def clean_cart
-    CleanCart.new.call(@current_cart)
+    CleanCart.new.call(cart: @current_cart)
     redirect_to cart_path(@current_cart)
     flash[:notice] = "Cart has been cleaned up"
   end

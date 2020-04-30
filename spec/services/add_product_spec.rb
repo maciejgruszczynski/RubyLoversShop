@@ -3,27 +3,26 @@ require 'rails_helper'
 describe 'AddProduct' do
   describe "call" do
     let(:cart) { create(:cart) }
-    let(:product) { create(:product) }
-    let(:cart_item_params) { params = {cart_identifier: cart.identifier, product_id: product.id, quantity: quantity} }
+    let(:product_id) { create(:product).id }
 
     describe "empty cart" do
       context "1 product - no errors expected" do
         let(:quantity) { 1 }
-        subject(:add_product) { AddProduct.new.call(cart, cart_item_params).success? }
+        subject(:add_product) { AddProduct.new.call(cart: cart, product_id: product_id, quantity: quantity).success? }
 
         it { is_expected.to eq true }
       end
 
       context "6 products - errors expected" do
         let(:quantity) { 6 }
-        subject(:add_product) { AddProduct.new.call(cart, cart_item_params).success? }
+        subject(:add_product) { AddProduct.new.call(cart: cart, product_id: product_id, quantity: quantity).success? }
 
         it { is_expected.to eq false }
       end
 
       context "Saved cart item has correct final price" do
         let(:quantity) { 5 }
-        subject(:add_product) { AddProduct.new.call(cart, cart_item_params).success.items.last.final_price_cents }
+        subject(:add_product) { AddProduct.new.call(cart: cart, product_id: product_id, quantity: quantity).success.items.last.final_price_cents }
 
         it { is_expected.to eq 5000 }
       end
@@ -34,7 +33,7 @@ describe 'AddProduct' do
 
       context "1 new product - errors expected" do
         let(:quantity) { 1 }
-        subject(:add_product) { AddProduct.new.call(full_cart, cart_item_params).success? }
+        subject(:add_product) { AddProduct.new.call(cart: full_cart, product_id: product_id, quantity: quantity).success? }
 
         it { is_expected.to eq false }
       end

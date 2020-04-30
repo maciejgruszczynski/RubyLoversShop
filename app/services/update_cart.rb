@@ -1,8 +1,7 @@
 class UpdateCart
   include Dry::Monads[:result]
 
-  def call(cart, params)
-    items = params[:items]
+  def call(cart:, items:)
 
     return Failure(message: "Max quantity exceeded (you cannot add more then #{Cart::MAX_ITEM_OCCURENCES} items") unless all_quantities_valid?(items)
 

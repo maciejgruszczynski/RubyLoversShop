@@ -1,9 +1,9 @@
 class UpdateProduct
   include Dry::Monads[:result]
 
-  def call(cart, params)
-    product = Product.find(params[:product_id])
-    quantity = params[:quantity].to_i
+  def call(cart:, product_id:, quantity:)
+    product = Product.find(product_id)
+    quantity = quantity.to_i
 
     return Failure(message: "Max quantity exceeded (you cannot add more then #{Cart::MAX_ITEM_OCCURENCES} items") if quantity_invalid?(cart, product, quantity)
 

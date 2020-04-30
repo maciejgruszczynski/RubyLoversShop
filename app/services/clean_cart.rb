@@ -1,5 +1,5 @@
 class CleanCart
-  def call(cart)
+  def call(cart: )
     cart.items.delete_all
     cart
   end
