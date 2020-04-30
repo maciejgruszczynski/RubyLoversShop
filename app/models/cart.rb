@@ -3,7 +3,7 @@ class Cart < ApplicationRecord
   MAX_ITEMS = 10
 
   has_many :items, class_name: 'CartItem'
-  belongs_to :user
+  belongs_to :user, optional: true
 
   accepts_nested_attributes_for :items
 
