@@ -14,9 +14,11 @@ gem 'money-rails', '~>1.12'
 gem 'will_paginate', '~> 3.1.0'
 gem 'pg_search', '~> 2.3', '>= 2.3.2'
 gem 'dry-monads', '~> 1.3', '>= 1.3.5'
+gem 'devise', '~> 4.2'
 
 
 group :development, :test do
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'pry-rails'
 end
 
@@ -31,7 +33,6 @@ group :development do
 end
 
 group :test do
-  gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'

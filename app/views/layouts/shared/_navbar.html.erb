@@ -4,5 +4,11 @@
     <%= f.text_field :q, value: params[:q], required: true, class: "form-control mr-sm-2" %>
     <%= f.submit "Search", name: nil, class: "btn btn-outline-success my-2 my-sm-0" %>
   <% end %>
+  <% if user_signed_in? %>
+    <%= current_user.email %>
+    <%= link_to " (Logout) ", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+  <% else %>
+    <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+<% end %>
   <%= link_to_cart %>
 </nav>

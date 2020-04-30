@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   resources :products, only: [:index, :show, :destroy] do
     collection do
       get :search
