@@ -7,8 +7,7 @@ class ApplicationController < ActionController::Base
       current_user.carts.last
     elsif user_signed_in? && current_user.has_no_cart?
       if session[:cart].present?
-        @current_cart.update(user_id: current_user.id)
-        @current_cart
+        CreateTempCart.new.call(user_id: current_user.id)
       else
         CreateTempCart.new.call(user_id: current_user.id)
       end
