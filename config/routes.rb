@@ -18,6 +18,6 @@ Rails.application.routes.draw do
 
   resources :cart_items, only: [:create, :update, :destroy]
 
-  root to: "products#index"
+  root to: 'products#index'
 
 end

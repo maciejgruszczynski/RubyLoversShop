@@ -29,7 +29,7 @@ describe 'UpdateProduct' do
         end
       end
 
-      context "final quantity > 5" do
+      context 'final quantity > 5' do
         let(:quantity) { 6 }
 
         it 'returns false' do

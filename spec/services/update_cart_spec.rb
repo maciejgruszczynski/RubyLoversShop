@@ -32,12 +32,12 @@ describe 'UpdateCart' do
 
         it 'updates cart items final price' do
           final_prices = result.success.items.map(&:final_price_cents)
-          
+
           expect(final_prices.all? { |p| p == 2000 }).to eq true
         end
       end
 
-      context "new quantities are not correct" do
+      context 'new quantities are not correct' do
         let(:quantity) { 6 }
 
         it 'returns failure' do

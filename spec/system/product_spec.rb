@@ -51,7 +51,7 @@ describe 'product', type: :feature do
       it 'can search for products' do
         visit '/products'
         fill_in 'q', with: 'Shi'
-        click_on('Search')
+        click_on 'Search'
 
         expect(current_path).to eql(search_products_path)
 
