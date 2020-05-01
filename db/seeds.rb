@@ -1,4 +1,8 @@
-puts "Creating products"
+require 'database_cleaner'
+
+DatabaseCleaner.clean_with(:truncation)
+
+puts 'Creating products'
 
 initial_product_code = "000000"
 (1..30).each do |i|
@@ -11,4 +15,4 @@ initial_product_code = "000000"
   ).save
 end
 
-puts "Products created"
+puts 'Products created'

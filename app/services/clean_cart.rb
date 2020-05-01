@@ -1,6 +1,8 @@
 class CleanCart
+  include Dry::Monads[:result]
+
   def call(cart: )
-    cart.items.delete_all
-    cart
+    cart.items.destroy_all
+    Success(cart)
   end
 end

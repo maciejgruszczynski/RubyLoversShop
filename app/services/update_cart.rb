@@ -3,9 +3,13 @@ class UpdateCart
 
   def call(cart:, items:)
 
-    return Failure(message: "Max quantity exceeded (you cannot add more then #{Cart::MAX_ITEM_OCCURENCES} items") unless all_quantities_valid?(items)
+    return Failure(message: "#{I18n.t('services.errors.max_quantity', limit: Cart::MAX_ITEM_OCCURENCES)}") unless all_quantities_valid?(items)
 
-    return Success(cart) if items_updated?(cart, items)
+    if items_updated?(cart, items)
+      Success(cart)
+    else
+      Failure(message: I18n.t('services.errors.other_error'))
+    end
   end
 
   def items_updated?(cart, items)

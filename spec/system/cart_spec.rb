@@ -14,12 +14,12 @@ describe 'cart', type: :feature do
 
       expect(page).to have_content 'Cart: $20.00'
 
-      within("#cart") do
+      within('#cart') do
         select 5, from: "items_#{item_1.id}_quantity"
         select 4, from: "items_#{item_2.id}_quantity"
       end
 
-      click_on "Update"
+      click_on 'Update'
 
       within('#notice') do
         expect(page).to have_content 'Cart updated'
@@ -34,7 +34,7 @@ describe 'cart', type: :feature do
 
       visit "/carts/#{cart.id}"
 
-      click_on "Clean cart"
+      click_on 'Clean cart'
 
       within('#notice') do
         expect(page).to have_content 'Cart has been cleaned up'
@@ -49,8 +49,8 @@ describe 'cart', type: :feature do
 
       visit "/carts/#{cart.id}"
 
-      within("#cart") do
-        first(:link, "Remove from cart").click
+      within('#cart') do
+        first(:link, 'Remove from cart').click
       end
 
       within('#notice') do

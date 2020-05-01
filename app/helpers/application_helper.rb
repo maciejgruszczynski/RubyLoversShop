@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def link_to_cart
     if @current_cart.new_record?
-      link_to("Cart: empty", "#")
+      link_to('Cart: empty', '#')
     else
       cart_value = humanized_money_with_symbol @current_cart.items.map {|i| i.final_price }.sum
       link_to("Cart: #{cart_value}", cart_path(@current_cart))

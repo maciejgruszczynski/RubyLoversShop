@@ -1,37 +1,44 @@
 require 'rails_helper'
 
 describe 'UpdateProduct' do
-  describe "call" do
+  describe '#call' do
     let(:cart) { create(:cart, :cart_with_products) }
     let(:product_id) {cart.items.first.product_id}
 
-    describe "cart with products" do
-      context "1 product - no errors expected" do
-        let(:quantity) { 1 }
-        subject(:add_product) { UpdateProduct.new.call(cart: cart, product_id: product_id, quantity: quantity).success? }
+    subject(:result) { UpdateProduct.new.call(cart: cart, product_id: product_id, quantity: quantity) }
 
-        it { is_expected.to eq true }
-      end
 
-      context "1 product - 2 items in cart expected" do
-        let(:quantity) { 1 }
-        subject(:add_product) { UpdateProduct.new.call(cart: cart, product_id: product_id, quantity: quantity).success.items.where(product_id: product_id).first.quantity }
-
-        it { is_expected.to eq 2 }
-      end
-
-      context "6 products - errors expected" do
-        let(:quantity) { 6 }
-        subject(:add_product) { UpdateProduct.new.call(cart: cart, product_id: product_id, quantity: quantity).success? }
-
-        it { is_expected.to eq false }
-      end
-
-      context "Saved cart item has correct final price" do
+    describe 'cart with products' do
+      context 'final quantity <= 5' do
         let(:quantity) { 4 }
-        subject(:add_product) { UpdateProduct.new.call(cart: cart, product_id: product_id, quantity: quantity).success.items.where(product_id: product_id).first.final_price_cents }
 
-        it { is_expected.to eq 5000 }
+        it 'returns true' do
+          expect(result.success?).to eq true
+        end
+
+        it 'updates item quantity' do
+          quantity = result.success.items.first.quantity
+
+          expect(quantity).to eq 5
+        end
+
+        it 'updates item final price' do
+          final_price = result.success.items.first.final_price_cents
+
+          expect(final_price).to eq 5000
+        end
+      end
+
+      context "final quantity > 5" do
+        let(:quantity) { 6 }
+
+        it 'returns false' do
+          expect(result.failure?).to eq true
+        end
+
+        it 'returns error message' do
+          expect(result.failure[:message]).to eq 'Maximum quantity exceeded (you cannot add more then 5 items)'
+        end
       end
     end
   end
