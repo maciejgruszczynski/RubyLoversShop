@@ -1,5 +1,4 @@
 class CreateTempCart
-
   def call
     Cart.new(identifier: generate_cart_identifier)
   end
