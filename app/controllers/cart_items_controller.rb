@@ -1,6 +1,7 @@
 class CartItemsController < ApplicationController
   def create
-    setup_new_cart
+    @current_cart.save
+    session[:cart] = @current_cart.identifier
 
     product_id = cart_item_params[:product_id]
     quantity = cart_item_params[:quantity]
@@ -39,10 +40,5 @@ class CartItemsController < ApplicationController
 
   def cart_item_params
     params.require(:cart_item).permit(:cart_identifier, :product_id, :quantity)
-  end
-
-  def setup_new_cart
-    @current_cart.save
-    session[:cart] = @current_cart.identifier
   end
 end

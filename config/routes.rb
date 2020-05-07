@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :carts, only: [:show, :update] do
+  resources :carts, only: [:show, :update, :destroy] do
     member do
       post :clean_cart
     end

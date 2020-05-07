@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'UpdateCart' do
+describe UpdateCart do
   describe '#call' do
     let(:cart) { create(:cart, :cart_with_products) }
     let(:first_item) { cart.items.first }
@@ -10,13 +10,13 @@ describe 'UpdateCart' do
     let(:cart_items) do
       {
         first_item.id => { quantity: quantity },
-        second_item.id => {quantity: quantity }
+        second_item.id => { quantity: quantity }
       }
     end
 
-    subject(:result) { UpdateCart.new.call(cart: cart, items: cart_items) }
+    subject(:result) { described_class.new.call(cart: cart, items_after_update: cart_items) }
 
-    describe 'cart has <10 cart items' do
+    context 'cart has <10 cart items' do
       context 'all new quantities are correct' do
         let(:quantity) { 2 }
 

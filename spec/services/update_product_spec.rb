@@ -1,14 +1,13 @@
 require 'rails_helper'
 
-describe 'UpdateProduct' do
+describe UpdateProduct do
   describe '#call' do
     let(:cart) { create(:cart, :cart_with_products) }
     let(:product_id) {cart.items.first.product_id}
 
-    subject(:result) { UpdateProduct.new.call(cart: cart, product_id: product_id, quantity: quantity) }
+    subject(:result) { described_class.new.call(cart: cart, product_id: product_id, quantity: quantity) }
 
-
-    describe 'cart with products' do
+    context 'cart with products' do
       context 'final quantity <= 5' do
         let(:quantity) { 4 }
 
@@ -17,13 +16,13 @@ describe 'UpdateProduct' do
         end
 
         it 'updates item quantity' do
-          quantity = result.success.items.first.quantity
+          quantity = result.value!.items.first.quantity
 
           expect(quantity).to eq 5
         end
 
         it 'updates item final price' do
-          final_price = result.success.items.first.final_price_cents
+          final_price = result.value!.items.first.final_price_cents
 
           expect(final_price).to eq 5000
         end

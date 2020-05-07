@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'product', type: :feature do
+describe 'product', type: :system do
   describe 'browse products' do
     context 'display products' do
       let!(:shirt) { create(:product, :shirt) }
@@ -59,14 +59,6 @@ describe 'product', type: :feature do
           shirts.each { |shirt| expect(page).to have_content shirt.name }
           pants.each { |pants| expect(page).to have_no_content pants.name}
         end
-      end
-
-      it 'cannot search for products if search field empty' do
-        visit '/products'
-        click_on 'Search'
-
-        validation_message = page.find('#q').native.attribute('validationMessage')
-        expect(validation_message).to eq 'Please fill in this field.'
       end
     end
   end

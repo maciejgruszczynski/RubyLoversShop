@@ -2,8 +2,7 @@ class CreateTempCart
   include Dry::Monads[:result]
 
   def call
-    cart = Cart.new(identifier: generate_cart_identifier)
-    Success(cart: cart)
+    Cart.new(identifier: generate_cart_identifier)
   end
 
   def generate_cart_identifier

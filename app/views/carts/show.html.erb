@@ -29,7 +29,7 @@
       </tbody>
     </table>
     <%= form.submit('Update', name: false) %>
-    <%= link_to 'Clean cart', clean_cart_cart_path(@current_cart.id), method: :post, class: "btn btn-outline-dark btn-sm" %>
+    <%= link_to 'Clean cart', cart_path(@current_cart), method: :delete, class: "btn btn-outline-dark btn-sm" %>
   <% end %>
 </div>
 

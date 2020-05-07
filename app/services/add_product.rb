@@ -5,9 +5,9 @@ class AddProduct
     product = Product.find(product_id)
     quantity = quantity.to_i
 
-    return Failure(message: "#{I18n.t('services.errors.max_quantity', limit: Cart::MAX_ITEM_OCCURENCES)}") if quantity_invalid?(quantity)
+    return Failure(message: I18n.t('services.errors.max_quantity', limit: Cart::MAX_ITEM_OCCURENCES)) if quantity_invalid?(quantity)
 
-    return Failure(message: "#{I18n.t('services.errors.max_products_count', limit: Cart::MAX_ITEMS)}") if max_items_count_exceded?(cart)
+    return Failure(message: I18n.t('services.errors.max_products_count', limit: Cart::MAX_ITEMS)) if max_items_count_exceded?(cart)
 
     if add_new_item(cart, product, quantity)
       Success(cart)

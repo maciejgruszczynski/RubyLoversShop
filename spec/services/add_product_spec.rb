@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'AddProduct' do
+describe AddProduct do
   describe '#call' do
     let(:cart) { create(:cart) }
     let(:product_id) { create(:product).id }
 
-    subject(:result) { AddProduct.new.call(cart: cart, product_id: product_id, quantity: quantity) }
+    subject(:result) { described_class.new.call(cart: cart, product_id: product_id, quantity: quantity) }
 
-    describe 'empty cart' do
+    context 'empty cart' do
       context '5 items or less' do
         let(:quantity) { 5 }
 
@@ -16,11 +16,11 @@ describe 'AddProduct' do
         end
 
         it 'add new product to cart' do
-          expect(result.success.items.count).to eq 1
+          expect(result.value!.items.count).to eq 1
         end
 
         it 'has correct final price' do
-          final_price = result.success.items.last.final_price_cents
+          final_price = result.value!.items.last.final_price_cents
 
           expect(final_price).to eq 5000
         end
@@ -39,7 +39,7 @@ describe 'AddProduct' do
       end
     end
 
-    describe 'cart full (already contains 10 products)' do
+    context 'cart full (already contains 10 products)' do
       let(:cart) { create(:cart, :full_cart) }
 
       context '1 new product' do

@@ -3,6 +3,6 @@ class CleanCart
 
   def call(cart: )
     cart.items.destroy_all
-    Success(cart)
+    cart
   end
 end

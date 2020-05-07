@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
       Cart.find_by(identifier: session[:cart])
     else
       result = CreateTempCart.new.call
-      result.success[:cart]
     end
   end
 end

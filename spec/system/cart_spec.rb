@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'cart', type: :feature do
+describe 'cart', type: :system do
 
   context "updates cart" do
     let(:cart) { create(:cart, :cart_with_products) }

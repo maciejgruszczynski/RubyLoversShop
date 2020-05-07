@@ -4,7 +4,7 @@ class CartsController < ApplicationController
   end
 
   def update
-    result = UpdateCart.new.call(cart: @current_cart, items: update_params[:items])
+    result = UpdateCart.new.call(cart: @current_cart, items_after_update: update_params[:items])
 
     redirect_to cart_path(@current_cart)
     if result.success?
@@ -14,7 +14,7 @@ class CartsController < ApplicationController
     end
   end
 
-  def clean_cart
+  def destroy
     CleanCart.new.call(cart: @current_cart)
     redirect_to cart_path(@current_cart)
     flash[:notice] = 'Cart has been cleaned up'
@@ -24,10 +24,5 @@ class CartsController < ApplicationController
 
   def update_params
     params.permit(:id, items: {})
-  end
-
-  def setup_new_cart
-    @current_cart.save
-    session[:cart] = @current_cart.identifier
   end
 end
