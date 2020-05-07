@@ -1,6 +1,8 @@
 class Product < ApplicationRecord
   include PgSearch::Model
 
+  has_many :cart_items
+
   pg_search_scope :search_by_name, against: :name, using: {
     trigram: {
       threshold: 0.2

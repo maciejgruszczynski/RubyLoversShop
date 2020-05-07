@@ -4,8 +4,9 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
     @disabled_sidebar = true
+    @product = Product.find(params[:id])
+    @cart_item = @current_cart.items.where(product_id: params[:id]).first_or_initialize
   end
 
   def search
