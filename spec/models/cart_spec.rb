@@ -4,7 +4,7 @@ describe Cart, type: :model do
   let(:cart) {create(:cart)}
 
 
-  describe "validation" do
+  describe 'validation' do
     it 'Identifier is mandatory' do
       should validate_presence_of(:identifier)
     end

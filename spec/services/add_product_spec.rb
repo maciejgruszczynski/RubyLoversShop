@@ -1,41 +1,57 @@
 require 'rails_helper'
 
-describe 'AddProduct' do
-  describe "call" do
+describe AddProduct do
+  describe '#call' do
     let(:cart) { create(:cart) }
     let(:product_id) { create(:product).id }
 
-    describe "empty cart" do
-      context "1 product - no errors expected" do
-        let(:quantity) { 1 }
-        subject(:add_product) { AddProduct.new.call(cart: cart, product_id: product_id, quantity: quantity).success? }
+    subject(:result) { described_class.new.call(cart: cart, product_id: product_id, quantity: quantity) }
 
-        it { is_expected.to eq true }
-      end
-
-      context "6 products - errors expected" do
-        let(:quantity) { 6 }
-        subject(:add_product) { AddProduct.new.call(cart: cart, product_id: product_id, quantity: quantity).success? }
-
-        it { is_expected.to eq false }
-      end
-
-      context "Saved cart item has correct final price" do
+    context 'empty cart' do
+      context '5 items or less' do
         let(:quantity) { 5 }
-        subject(:add_product) { AddProduct.new.call(cart: cart, product_id: product_id, quantity: quantity).success.items.last.final_price_cents }
 
-        it { is_expected.to eq 5000 }
+        it 'returns success' do
+          expect(result.success?).to eq true
+        end
+
+        it 'add new product to cart' do
+          expect(result.value!.items.count).to eq 1
+        end
+
+        it 'has correct final price' do
+          final_price = result.value!.items.last.final_price_cents
+
+          expect(final_price).to eq 5000
+        end
+      end
+
+      context 'more then 5 products - errors expected' do
+        let(:quantity) { 6 }
+
+        it 'returns failure' do
+          expect(result.failure?).to eq true
+        end
+
+        it 'returns error message' do
+          expect(result.failure[:message]).to eq 'Maximum quantity exceeded (you cannot add more then 5 items)'
+        end
       end
     end
 
-    describe "cart full (already contains 10 products)" do
-      let(:full_cart) { create(:cart, :full_cart) }
+    context 'cart full (already contains 10 products)' do
+      let(:cart) { create(:cart, :full_cart) }
 
-      context "1 new product - errors expected" do
+      context '1 new product' do
         let(:quantity) { 1 }
-        subject(:add_product) { AddProduct.new.call(cart: full_cart, product_id: product_id, quantity: quantity).success? }
 
-        it { is_expected.to eq false }
+        it 'returns failure' do
+          expect(result.failure?).to eq true
+        end
+
+        it 'returns error message' do
+          expect(result.failure[:message]).to eq 'Maximum amount of products in cart exceeded (no more than 10 items allowed)'
+        end
       end
     end
   end

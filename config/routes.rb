@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :carts, only: [:show, :update] do
+  resources :carts, only: [:show, :update, :destroy] do
     member do
       post :clean_cart
     end
@@ -19,6 +19,6 @@ Rails.application.routes.draw do
 
   resources :cart_items, only: [:create, :update, :destroy]
 
-  root to: "products#index"
+  root to: 'products#index'
 
 end

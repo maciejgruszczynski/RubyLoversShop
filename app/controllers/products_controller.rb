@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   def show
     @disabled_sidebar = true
     @product = Product.find(params[:id])
-    set_cart_item
+    @cart_item = @current_cart.items.where(product_id: params[:id]).first_or_initialize
   end
 
   def search
@@ -17,9 +17,5 @@ class ProductsController < ApplicationController
 
   def search_params
     params.permit(:q)
-  end
-
-  def set_cart_item
-    @cart_item = @current_cart.items.where(product_id: params[:id]).first_or_initialize
   end
 end

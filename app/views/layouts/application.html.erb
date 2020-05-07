@@ -12,9 +12,9 @@
 
   <body>
     <%= render '/layouts/shared/navbar' %>
-    <% if flash[:notice]%>
-      <%= render "/layouts/shared/notice" %>
-    <%end%>
+    <% if flash[:notice] %>
+      <%= render '/layouts/shared/notice' %>
+    <% end %>
 
     <div class="row mt-4">
       <% unless @disabled_sidebar %>
@@ -30,7 +30,6 @@
     </div>
 
     <%= render '/layouts/shared/footer' %>
-
     <%= console if Rails.env.development? %>
   </body>
 </html>

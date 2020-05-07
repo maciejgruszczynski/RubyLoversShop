@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe 'product', type: :feature do
-  describe "browse products " do
-    context "display products" do
+describe 'product', type: :system do
+  describe 'browse products' do
+    context 'display products' do
       let!(:shirt) { create(:product, :shirt) }
 
       it 'shows list of products' do
@@ -26,32 +26,32 @@ describe 'product', type: :feature do
       end
     end
 
-    context "pagination" do
+    context 'pagination' do
       let!(:shirts) { create_list(:product, 20, :shirt) }
 
       it 'can display pagination on index page if > 10 products' do
         visit '/products'
 
-        expect(page).to have_content "Previous"
-        expect(page).to have_content "Next"
+        expect(page).to have_content 'Previous'
+        expect(page).to have_content 'Next'
       end
 
       it 'can display pagination on search results page if > 10 products' do
         visit '/products/search?q=Shirt'
 
-        expect(page).to have_content "Previous"
-        expect(page).to have_content "Next"
+        expect(page).to have_content 'Previous'
+        expect(page).to have_content 'Next'
       end
     end
 
-    context "search for products" do
+    context 'search for product' do
       let!(:shirts) { create_list(:product, 3, :shirt) }
       let!(:pants) { create_list(:product, 3, :pants) }
 
       it 'can search for products' do
         visit '/products'
         fill_in 'q', with: 'Shi'
-        click_on('Search')
+        click_on 'Search'
 
         expect(current_path).to eql(search_products_path)
 
@@ -59,14 +59,6 @@ describe 'product', type: :feature do
           shirts.each { |shirt| expect(page).to have_content shirt.name }
           pants.each { |pants| expect(page).to have_no_content pants.name}
         end
-      end
-
-      it 'cannot search for products if search field empty' do
-        visit '/products'
-        click_on 'Search'
-
-        validation_message = page.find('#q').native.attribute('validationMessage')
-        expect(validation_message).to eq 'Please fill in this field.'
       end
     end
   end
@@ -89,7 +81,7 @@ describe 'product', type: :feature do
         expect(page).to have_content "Cart show (#{cart.identifier})"
         expect(page).to have_content 'Cart: $20.00'
 
-        within("#cart") do
+        within('#cart') do
           expect(page).to have_link(shirt.name, href: "/products/#{shirt.id}")
           expect(page).to have_select("items_#{item.id}_quantity", selected: '2')
           expect(page).to have_content('$10.00')
@@ -121,7 +113,7 @@ describe 'product', type: :feature do
         expect(page).to have_content "Cart show (#{cart.identifier})"
         expect(page).to have_content 'Cart: $40.00'
 
-        within("#cart") do
+        within('#cart') do
           expect(page).to have_link(shirt.name, href: "/products/#{shirt.id}")
           expect(page).to have_select("items_#{item.id}_quantity", selected: '2')
           expect(page).to have_content('$10.00')
@@ -144,7 +136,7 @@ describe 'product', type: :feature do
         click_on 'Add to cart'
 
         within('#notice') do
-          expect(page).to have_content 'max 10 items allowed'
+          expect(page).to have_content 'Maximum amount of products in cart exceeded (no more than 10 items allowed)'
         end
       end
     end

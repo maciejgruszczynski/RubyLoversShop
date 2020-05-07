@@ -5,9 +5,13 @@ class UpdateProduct
     product = Product.find(product_id)
     quantity = quantity.to_i
 
-    return Failure(message: "Max quantity exceeded (you cannot add more then #{Cart::MAX_ITEM_OCCURENCES} items") if quantity_invalid?(cart, product, quantity)
+    return Failure(message: "#{I18n.t('services.errors.max_quantity', limit: Cart::MAX_ITEM_OCCURENCES)}") if quantity_invalid?(quantity)
 
-    return Success(cart) if update_cart_item(cart, product, quantity)
+    if update_cart_item(cart, product, quantity)
+      Success(cart)
+    else
+      Failure(message: I18n.t('services.errors.other_error'))
+    end
   end
 
   private
@@ -20,9 +24,7 @@ class UpdateProduct
     cart
   end
 
-
-  def quantity_invalid?(cart, product, quantity)
-    current_quantity = cart.items.select {|i| i.product_id = product.id}.first.quantity
-    current_quantity + quantity > Cart::MAX_ITEM_OCCURENCES
+  def quantity_invalid?(quantity)
+    quantity > Cart::MAX_ITEM_OCCURENCES
   end
 end

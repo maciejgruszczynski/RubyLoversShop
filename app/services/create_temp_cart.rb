@@ -1,5 +1,6 @@
 class CreateTempCart
-  def call(user_id: nil)
+
+  def call(user_id:)
     Cart.new(identifier: generate_cart_identifier, user_id: user_id)
   end
 
