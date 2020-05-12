@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
 
   get 'carts', to: 'carts#show'
+  delete 'cart', to: 'carts#destroy'
   resources :carts, only: [:update, :destroy]
 
   resources :cart_items, only: [:create, :update, :destroy]

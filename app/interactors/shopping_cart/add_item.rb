@@ -1,31 +1,34 @@
 class ShoppingCart
   class AddItem
     include Dry::Monads[:result]
-    #attr_reader :cart
-#
-#    def initialize(cart)
-#      @cart = cart
-#    end
 
     def call(cart:, product_id:, quantity:)
       cart_item = Entities::CartItem.new(product_id: product_id, quantity: quantity)
-      #cart[cart_item.product_id] = cart_item.quantity
-      cart = Entities::Cart.new(cart)
-      cart.add_item(cart_item)
 
-      if cart_item.valid?
+      cart = Entities::Cart.new(cart)
+
+      #result = cart.add_item(cart_item)
+
+      if cart_item.valid? && cart.add_item(cart_item).success?
         Success(cart)
       else
-        Failure(message: errors(item: cart_item, cart: cart_item))
+        binding.pry
+        Failure(message: errors(item: cart_item, cart: cart))
       end
+      #if result.success? && cart.valid?
+      #  binding.pry
+      #  Success(cart)
+      #else
+      #  Failure(message: errors(item: cart_item, cart: cart))
+      #end
     end
 
     private
 
     def errors(item:, cart:)
       errors = []
-      errors << item.validation_errors
-      errors << item.validation_errors
+      errors << item.validation_errors if item.validation_errors
+      errors << cart.validation_errors if cart.validation_errors
       errors
     end
   end
