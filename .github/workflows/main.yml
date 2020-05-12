@@ -12,5 +12,6 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   checks:
-   - name: Rubocop checks
-     uses: gimenete/rubocop-action@1.0
+    - name: Rubocop checks
+    uses: gimenete/rubocop-action@1.0
+
