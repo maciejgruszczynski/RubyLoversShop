@@ -3,12 +3,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_cart(cart = nil)
-    @current_cart ||=
-    if session[:cart].present?
-      Cart.find_by(identifier: session[:cart])
-    else
-      result = CreateTempCart.new.call
-    end
+  def set_cart
+    @_current_cart ||=
+    session[:cart] || {}
   end
 end

@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :carts, only: [:show, :update, :destroy]
+  get 'carts', to: 'carts#show'
+  resources :carts, only: [:update, :destroy]
 
   resources :cart_items, only: [:create, :update, :destroy]
 

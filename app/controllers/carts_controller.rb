@@ -1,6 +1,5 @@
 class CartsController < ApplicationController
   def show
-    redirect_to root_path if @current_cart.new_record?
   end
 
   def update
