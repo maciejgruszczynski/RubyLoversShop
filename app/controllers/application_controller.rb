@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_cart
-    @_current_cart ||=
-    session[:cart] || {}
+    @current_cart ||=
+      session[:cart] || {}
   end
 end
