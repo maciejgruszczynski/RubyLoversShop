@@ -1,41 +1,51 @@
 class ShoppingCart
   include Dry::Monads[:result]
 
-  attr_reader :cart
+  attr_reader :storage
 
   def initialize(session)
-    @cart = session[:cart] ||= {}
+    @storage = session[:cart] ||= {}
   end
 
   def add_item(product_id:, quantity:)
-    result = ShoppingCart::Services::AddItem.new.call(cart: cart, product_id: product_id, quantity: quantity)
-
-    if result.success?
-      Success(cart)
-    else
-      Failure(result.failure)
-    end
+    result = ShoppingCart::Services::AddItem.new.call(
+      storage: storage,
+      product_id: product_id,
+      quantity: quantity
+    )
   end
 
   def update_item(product_id:, quantity: )
-    result = ShoppingCart::Services::UpdateItem.new.call(cart: cart, product_id: product_id, quantity: quantity)
-
-    if result.success?
-      Success(cart)
-    else
-      Failure(result.failure)
-    end
+    result = ShoppingCart::Services::UpdateItem.new.call(
+      storage: storage,
+      product_id: product_id,
+      quantity: quantity
+    )
   end
 
   def update_cart(items_after_update: )
-    result = ShoppingCart::Services::UpdateCart.new.call(cart: cart, items_after_update: items_after_update)
+    result = ShoppingCart::Services::UpdateCart.new.call(
+      storage: storage,
+      items_after_update: items_after_update
+    )
   end
 
   def destroy
-    cart.clear
+    storage.clear
   end
 
-  #def find_item(product_id: )
-  #  ShoppingCart::Cart.new(cart).find_item(product_id: product_id)
-  #end
+  def find_item(product_id: )
+    ShoppingCart::Storage.new(storage).find_item(product_id: product_id)
+  end
+
+  def items
+    @storage
+  end
+
+  def destroy_item(product_id: )
+    result = ShoppingCart::Services::RemoveItem.new.call(
+      storage: storage,
+      product_id: product_id
+    )
+  end
 end

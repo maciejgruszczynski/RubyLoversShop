@@ -5,17 +5,30 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">
             <%= t('product') -%>
+          </th>
+          <th scope="col">
+            <%= t('quantity') -%>
+          </th>
+          <th scope="col">
+            <%= t('unit_price') -%>
+          </th>
+          <th scope="col">
+            <%= t('total_price') -%>
+          </th>
+          <th>
           </th>
         </tr>
       </thead>
       <tbody>
-        <% current_cart.map do |product_id, quantity| %>
+        <% current_cart.items.map do |product_id, quantity| %>
             <tr>
-              <td><%= product_id %></td>
+              <td><%= link_to product(product_id).name, product_path(product_id) %></td>
               <td><%= quantity %></td>
+              <td><%= humanized_money_with_symbol product(product_id).price %></td>
+              <td><%= total_price(product_id, quantity) %></td>
+              <td><%= link_to 'Remove from cart', cart_item_path(product_id: product_id), method: :delete %></td>
             </tr>
         <% end %>
       </tbody>

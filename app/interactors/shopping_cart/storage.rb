@@ -1,23 +1,23 @@
 class ShoppingCart
-  class Cart
+  class Storage
     include Dry::Monads[:result]
 
-    attr_accessor :cart
+    attr_accessor :storage
 
-    def initialize(cart)
-      @cart = cart
+    def initialize(storage)
+      @storage = storage
     end
 
     def find_item(product_id: )
-      item_attributes = cart.select { |key| key == product_id.to_s }
+      item_attributes = storage.select { |key| key == product_id.to_s }
       Entities::CartItem.new(product_id: item_attributes.keys.first, quantity: item_attributes[product_id.to_s])
     end
 
     def add_item(item)
       if item.valid?
-        cart[item.product_id] = item.quantity
+        storage[item.product_id] = item.quantity
         if self.valid?
-          Success(cart)
+          Success(storage)
         else
           Failure(self.validation_errors)
         end
@@ -27,17 +27,21 @@ class ShoppingCart
     end
 
     def update_item(item:, quantity:)
-      cart[item.product_id] = quantity
-      Success(cart)
+      storage[item.product_id] = quantity
+      Success(storage)
+    end
+
+    def destroy_item(item: )
+      binding.pry
     end
 
     def valid?
-      validation = Validators::CartMaxItemsCount.new.validate(cart)
+      validation = Validators::CartMaxItemsCount.new.validate(storage)
       validation.success?
     end
 
     def validation_errors
-      validation = Validators::CartMaxItemsCount.new.validate(cart)
+      validation = Validators::CartMaxItemsCount.new.validate(storage)
       validation.failure
     end
   end

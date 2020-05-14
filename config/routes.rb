@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   delete 'cart', to: 'carts#destroy'
   post 'cart_items', to: 'cart_items#create'
   patch 'cart_items', to: 'cart_items#update'
+  delete 'cart_item', to: 'cart_items#destroy'
 
 
   root to: 'products#index'

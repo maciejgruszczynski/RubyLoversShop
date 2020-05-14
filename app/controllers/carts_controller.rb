@@ -1,4 +1,6 @@
 class CartsController < ApplicationController
+  helper_method :current_cart
+
   def show
   end
 
@@ -14,7 +16,7 @@ class CartsController < ApplicationController
   end
 
   def destroy
-    result = ShoppingCart.new(session).destroy
+    result = current_cart.destroy
     redirect_to carts_path
     flash[:notice] = ['Cart has been cleaned up']
   end

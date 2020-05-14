@@ -3,25 +3,24 @@ class ShoppingCart
     class AddItem
       include Dry::Monads[:result]
 
-      def call(cart:, product_id:, quantity:)
+      def call(storage:, product_id:, quantity:)
         cart_item = Entities::CartItem.new(product_id: product_id, quantity: quantity)
 
-        cart = Cart.new(cart)
+        storage = Storage.new(storage)
 
-        if cart_item.valid? && cart.add_item(cart_item).success?
-          Success(cart)
+        if cart_item.valid? && storage.add_item(cart_item).success?
+          Success(storage)
         else
-          binding.pry
-          Failure(message: errors(item: cart_item, cart: cart))
+          Failure(message: errors(item: cart_item, storage: storage))
         end
       end
 
       private
 
-      def errors(item:, cart:)
+      def errors(item:, storage:)
         errors = []
         errors << item.validation_errors if item.validation_errors
-        errors << cart.validation_errors if cart.validation_errors
+        errors << storage.validation_errors if storage.validation_errors
         errors
       end
     end

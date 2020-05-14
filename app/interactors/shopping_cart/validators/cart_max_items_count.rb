@@ -5,9 +5,9 @@ class ShoppingCart
 
       MAX_ITEMS_COUNT = 10
 
-      def validate(cart)
-        if cart.size <= MAX_ITEMS_COUNT
-          Success(cart)
+      def validate(storage)
+        if storage.size <= MAX_ITEMS_COUNT
+          Success(storage)
         else
           Failure(I18n.t('services.errors.max_products_count', limit: MAX_ITEMS_COUNT))
         end

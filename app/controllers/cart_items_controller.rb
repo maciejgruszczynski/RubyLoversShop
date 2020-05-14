@@ -3,7 +3,7 @@ class CartItemsController < ApplicationController
     product_id = cart_item_params[:product_id]
     quantity = cart_item_params[:quantity]
 
-    result = ShoppingCart.new(session).add_item(
+    result = current_cart.add_item(
       product_id: product_id,
       quantity: quantity
     )
@@ -18,11 +18,10 @@ class CartItemsController < ApplicationController
   end
 
   def update
-    binding.pry
     product_id = cart_item_params[:product_id]
     quantity = cart_item_params[:quantity]
 
-    result = ShoppingCart.new(session).update_item(
+    result = current_cart.update_item(
       product_id: product_id,
       quantity: quantity
     )
@@ -36,9 +35,7 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    @cart_item = CartItem.find(params[:id])
-
-    @cart_item.delete
+    result = current_cart.destroy_item(product_id: cart_item_params[:product_id])
     redirect_to cart_path(@current_cart)
     flash[:notice] = 'Product has been removed from cart'
   end
