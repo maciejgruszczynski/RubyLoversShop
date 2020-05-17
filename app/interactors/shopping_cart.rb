@@ -4,12 +4,13 @@ class ShoppingCart
   attr_reader :storage
 
   def initialize(session)
-    @storage = session[:cart] ||= {}
+    #@storage = session[:cart] ||= {}
+    @storage = Entities::Storage.new(session: session)
   end
 
   def add_item(product_id:, quantity:)
     result = ShoppingCart::Services::AddItem.new.call(
-      storage: storage,
+      current_cart: storage,
       product_id: product_id,
       quantity: quantity
     )
@@ -17,7 +18,7 @@ class ShoppingCart
 
   def update_item(product_id:, quantity: )
     result = ShoppingCart::Services::UpdateItem.new.call(
-      storage: storage,
+      current_cart: storage,
       product_id: product_id,
       quantity: quantity
     )
@@ -25,26 +26,30 @@ class ShoppingCart
 
   def update_cart(items_after_update: )
     result = ShoppingCart::Services::UpdateCart.new.call(
-      storage: storage,
+      current_cart: storage,
       items_after_update: items_after_update
     )
   end
 
   def destroy
-    storage.clear
-  end
-
-  def find_item(product_id: )
-    ShoppingCart::Storage.new(storage).find_item(product_id: product_id)
+    result = ShoppingCart::Services::DestroyCart.new.call(current_cart: storage)
   end
 
   def items
-    @storage
+    @storage.items
+  end
+
+  def number_of_items
+    @storage.number_of_items
+  end
+
+  def value
+    @storage.value
   end
 
   def destroy_item(product_id: )
     result = ShoppingCart::Services::RemoveItem.new.call(
-      storage: storage,
+      current_cart: storage,
       product_id: product_id
     )
   end

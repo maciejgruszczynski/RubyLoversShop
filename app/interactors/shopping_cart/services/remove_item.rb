@@ -3,11 +3,8 @@ class ShoppingCart
     class RemoveItem
       include Dry::Monads[:result]
 
-      def call(storage:, product_id:)
-        storage = Storage.new(storage)
-        storage.items.delete(product_id.to_s)
-
-        Success(storage)
+      def call(current_cart:, product_id:)
+        result = ShoppingCart::Storage.new(current_cart).remove_item(product_id: product_id)
       end
     end
   end

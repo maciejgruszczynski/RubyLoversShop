@@ -1,7 +1,6 @@
 class ShoppingCart
   module Entities
     class CartItem
-      include Dry::Monads[:result]
 
       attr_accessor :product_id, :quantity
 

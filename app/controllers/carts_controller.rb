@@ -9,7 +9,7 @@ class CartsController < ApplicationController
 
     redirect_to carts_path
     if result.success?
-      flash[:notice] = ['Cart updated']
+      flash[:notice] = 'Cart updated'
     else
       flash[:notice] = result.failure[:message]
     end
@@ -18,12 +18,12 @@ class CartsController < ApplicationController
   def destroy
     result = current_cart.destroy
     redirect_to carts_path
-    flash[:notice] = ['Cart has been cleaned up']
+    flash[:notice] = 'Cart has been cleaned up'
   end
 
   private
 
   def update_params
-    params.permit(:id, items: {})
+    params.permit(items: {})
   end
 end

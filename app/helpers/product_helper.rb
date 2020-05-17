@@ -1,6 +1,6 @@
 module ProductHelper
-  def url_method(cart:, product_id:)
-    if cart.items.present? && cart.items.has_key?(product_id.to_s)
+  def url_method(product_id:)
+      if current_cart.storage.has_product?(product_id: product_id)
       'PATCH'
     else
       'POST'
