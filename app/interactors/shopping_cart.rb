@@ -4,7 +4,6 @@ class ShoppingCart
   attr_reader :storage
 
   def initialize(session)
-    #@storage = session[:cart] ||= {}
     @storage = Entities::Storage.new(session: session)
   end
 

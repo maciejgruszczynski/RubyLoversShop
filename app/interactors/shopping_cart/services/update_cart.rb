@@ -19,15 +19,6 @@ class ShoppingCart
           Failure(message: items.select { |item| !item.valid? }.first.validation_errors)
         end
       end
-
-      private
-
-      def errors(item:, storage:)
-        errors = []
-        errors << item.validation_errors if item.validation_errors
-        errors << storage.validation_errors if storage.validation_errors
-        errors
-      end
     end
   end
 end
