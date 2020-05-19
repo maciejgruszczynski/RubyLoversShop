@@ -15,6 +15,7 @@ class ShoppingCart
 
     def add_item(item)
       cart.storage[item.product_id] = item.quantity
+
       if self.valid?
         Success(cart)
       else
@@ -31,6 +32,7 @@ class ShoppingCart
       items_after_update.each do |item|
         update_item(product_id: item.product_id, quantity: item.quantity)
       end
+      
       Success(cart)
     end
 

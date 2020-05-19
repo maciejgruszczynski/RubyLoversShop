@@ -32,9 +32,6 @@ RSpec.describe ShoppingCart::Entities::CartItem do
       end
     end
 
-
-    end
-
     context 'incorrect cart_item attributes' do
       #TODO
     end
