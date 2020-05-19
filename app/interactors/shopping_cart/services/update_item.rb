@@ -10,7 +10,8 @@ class ShoppingCart
         cart_item = Entities::CartItem.new(product_id: product_id, quantity: new_quantity)
 
         if cart_item.valid?
-          result = ShoppingCart::Storage.new(current_cart).update_item(product_id: product_id, quantity: new_quantity)
+          current_cart.storage[product_id] = new_quantity
+          Success(current_cart)
         else
           Failure(message: cart_item.validation_errors)
         end

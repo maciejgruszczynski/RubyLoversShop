@@ -14,7 +14,10 @@ class ShoppingCart
         end
 
         if items.all? { |item| item.valid? }
-          result = ShoppingCart::Storage.new(current_cart).update_cart(items_after_update: items)
+          items.each do |item|
+            current_cart.storage[item.product_id] = item.quantity
+          end
+          Success(current_cart)
         else
           Failure(message: items.select { |item| !item.valid? }.first.validation_errors)
         end
