@@ -3,7 +3,7 @@ class ShoppingCart
     class UpdateCart
       include Dry::Monads[:result]
 
-      def call(current_cart:, items_after_update:)
+      def call(cart:, items_after_update:)
         items = []
 
         items_after_update.each do |item|
@@ -15,11 +15,11 @@ class ShoppingCart
 
         if items.all? { |item| item.valid? }
           items.each do |item|
-            ShoppingCart::Store.new(current_cart).add_item(item: item)
+            ShoppingCart::Store.new(cart).add_item(item: item)
           end
-          Success(current_cart)
+          Success(cart)
         else
-          Failure(message: items.select { |item| !item.valid? }.first.validation_errors)
+          Failure(message: items.select { |item| !item.valid? }.first.errors)
         end
       end
     end

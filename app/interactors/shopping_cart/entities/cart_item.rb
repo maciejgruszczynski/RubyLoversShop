@@ -13,7 +13,7 @@ class ShoppingCart
 
       def valid?
         validation = Validators::CartItemQuantity.new.validate(self)
-        self.errors
+        self.errors = validation.failure
         validation.success?
       end
 

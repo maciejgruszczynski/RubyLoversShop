@@ -1,6 +1,6 @@
 class ShoppingCart
   module Entities
-    class Storage
+    class Cart
 
       attr_accessor :storage
       attr_reader :errors

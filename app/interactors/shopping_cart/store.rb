@@ -1,18 +1,22 @@
 class ShoppingCart
   class Store
 
-    attr_reader :storage
+    attr_reader :cart
 
-    def initialize(storage)
-      @storage = storage
+    def initialize(cart)
+      @cart = cart
     end
 
     def add_item(item: )
-      storage.storage[item.product_id] = item.quantity
+      cart.storage[item.product_id] = item.quantity
     end
 
     def clear_cart
-      storage.storage.clear
+      cart.storage.clear
+    end
+
+    def remove_item(product_id:)
+      cart.storage.delete(product_id.to_s)
     end
   end
 end
