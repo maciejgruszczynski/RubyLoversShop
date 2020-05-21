@@ -1,11 +1,9 @@
 class CartsController < ApplicationController
-  helper_method :current_cart
-
   def show
   end
 
   def update
-    result = ShoppingCart.new(session).update_cart(items_after_update: update_params[:items])
+    result = current_cart.update_cart(items_after_update: update_params[:items])
 
     redirect_to carts_path
     if result.success?

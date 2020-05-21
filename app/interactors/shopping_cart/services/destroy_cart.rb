@@ -4,8 +4,8 @@ class ShoppingCart
       include Dry::Monads[:result]
 
       def call(current_cart: )
-        current_cart.storage.clear
-        Success(current_cart)
+        ShoppingCart::Store.new(current_cart).clear_cart
+        Success
       end
     end
   end

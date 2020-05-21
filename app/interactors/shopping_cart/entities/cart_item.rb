@@ -3,21 +3,23 @@ class ShoppingCart
     class CartItem
 
       attr_accessor :product_id, :quantity
+      attr_reader :errors
 
       def initialize(product_id:, quantity: )
         @product_id = product_id
         @quantity = quantity
+        @errors = ''
       end
 
       def valid?
         validation = Validators::CartItemQuantity.new.validate(self)
+        self.errors
         validation.success?
       end
 
-      def validation_errors
-        validation = Validators::CartItemQuantity.new.validate(self)
-        validation.failure
-      end
+      private
+
+      attr_writer :errors
     end
   end
 end

@@ -5,7 +5,7 @@ class ShoppingCart
 
       def call(current_cart:, product_id:)
         current_cart.storage.delete(product_id)
-        Success(current_cart)
+        Success
       end
     end
   end

@@ -15,7 +15,7 @@ class ShoppingCart
 
         if items.all? { |item| item.valid? }
           items.each do |item|
-            current_cart.storage[item.product_id] = item.quantity
+            ShoppingCart::Store.new(current_cart).add_item(item: item)
           end
           Success(current_cart)
         else
