@@ -3,10 +3,11 @@ class ShoppingCart
     class Cart
 
       attr_accessor :storage
-      attr_reader :errors
+      attr_reader :errors, :store
 
       def initialize(session:)
         @storage = session[:cart] ||= {}
+        @store = ShoppingCart::Store.new(self)
         @errors = ''
       end
 

@@ -9,8 +9,6 @@ class ShoppingCart
     @cart = Entities::Cart.new(session: session)
   end
 
-  delegate :items, :count_items, :has_product?, :product, :value, to: :cart
-
   def add_item(product_id:, quantity:)
     ShoppingCart::Services::AddItem.new.call(
       cart: cart,
@@ -43,5 +41,25 @@ class ShoppingCart
       cart: cart,
       product_id: product_id
     )
+  end
+
+  def items
+    cart.items
+  end
+
+  def count_items
+    cart.count_items
+  end
+
+  def has_product?(product_id: )
+    cart.has_product?(product_id: product_id)
+  end
+
+  def product(product_id:)
+    cart.product(product_id: product_id)
+  end
+
+  def value
+    cart.value
   end
 end

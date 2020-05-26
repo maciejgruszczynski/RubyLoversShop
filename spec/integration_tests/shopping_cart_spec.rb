@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ShoppingCart do
-  subject(:shopping_cart) { described_class.new(session) }
-  subject(:storage) { shopping_cart.cart.storage }
+  let(:shopping_cart) { described_class.new(session) }
+  let(:storage) { shopping_cart.cart.storage }
 
   describe 'new' do
     context 'cart is not present in session' do
@@ -35,11 +35,7 @@ RSpec.describe ShoppingCart do
         let(:quantity) { 1 }
 
         it 'returns success' do
-          expect(add_item.success?).to eq true
-        end
-
-        it 'add 1 item to storage' do
-          expect(add_item.success.storage.size).to eq 1
+          expect { add_item }.to change { storage.size }.by(1)
         end
       end
 
@@ -47,11 +43,7 @@ RSpec.describe ShoppingCart do
         let(:quantity) { 6 }
 
         it 'returns failure' do
-          expect(add_item.failure?).to eq true
-        end
-
-        it 'returns error message' do
-          expect(add_item.failure[:message].present?).to eq true
+          expect { add_item }.to_not change { storage.size }
         end
       end
     end
@@ -74,11 +66,7 @@ RSpec.describe ShoppingCart do
       let(:quantity) { 1 }
 
       it 'returns failure' do
-        expect(add_item.failure?).to eq true
-      end
-
-      it 'returns error message' do
-        expect(add_item.failure[:message].present?).to eq true
+        expect { add_item }.to_not change { storage.size }
       end
     end
   end
@@ -89,11 +77,7 @@ RSpec.describe ShoppingCart do
       subject(:remove_item) { shopping_cart.remove_item(product_id: 1) }
 
       it 'returns success' do
-        expect(remove_item.success?).to eq true
-      end
-
-      it 'removes item' do
-        expect(remove_item.success.storage.size).to eq 0
+        expect { remove_item }.to change { storage.size }.from(1).to(0)
       end
     end
   end
@@ -106,12 +90,8 @@ RSpec.describe ShoppingCart do
     context 'valid quantity' do
       let(:quantity) { 1 }
 
-      it 'returns true' do
-        expect(update_item.success?).to eq true
-      end
-
-      it 'updates quantity' do
-        expect(update_item.value!.storage['1']).to eq 3
+      it 'returns success' do
+        expect { update_item }.to change { storage['1'] }.from(2).to(3)
       end
     end
 
@@ -119,11 +99,7 @@ RSpec.describe ShoppingCart do
       let(:quantity) { 4 }
 
       it 'returns failure' do
-        expect(update_item.failure?).to eq true
-      end
-
-      it 'returns errors message' do
-        expect(update_item.failure[:message].present?).to eq true
+        expect { update_item }.to_not change { storage['1'] }
       end
     end
   end
@@ -141,12 +117,7 @@ RSpec.describe ShoppingCart do
       }
 
       it 'returns success' do
-        #binding.pry
-        expect(update_cart.success?).to eq true
-      end
-
-      it 'updates quantities' do
-        expect(update_cart.value!.storage).to eq ({ '1' => 5, '2' => 5 })
+        expect { update_cart }.to change { storage.values }.to all (be 5)
       end
     end
 
@@ -159,12 +130,8 @@ RSpec.describe ShoppingCart do
       }
 
       it 'returns failure' do
-        #binding.pry
-        expect(update_cart.failure?).to eq true
-      end
-
-      it 'returns error message' do
-        expect(update_cart.failure[:message].present?).to eq true
+        expect { update_cart }.to_not change { storage['1'] }
+        expect { update_cart }.to_not change { storage['5'] }
       end
     end
   end
@@ -176,7 +143,7 @@ RSpec.describe ShoppingCart do
       let(:session) { { :cart => { '1' => 2 } } }
 
       it 'destroys all items in cart' do
-        expect(destroy.value!.storage).to eq ({})
+        expect { destroy }.to change { storage }.to be {}
       end
     end
   end

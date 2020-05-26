@@ -1,6 +1,6 @@
 class ShoppingCart
   module Services
-    class UpdateItem
+    class UpdateItem < BaseService
       include Dry::Monads[:result]
 
       def call(cart:, product_id:, quantity:)
@@ -10,10 +10,11 @@ class ShoppingCart
         cart_item = Entities::CartItem.new(product_id: product_id, quantity: new_quantity)
 
         if cart_item.valid?
-          cart.storage[product_id] = new_quantity
+          cart.store.add_item(item: cart_item)
           Success(cart)
         else
-          Failure(message: cart_item.errors)
+          add_errors(cart_item)
+          Failure(message: errors)
         end
       end
     end
