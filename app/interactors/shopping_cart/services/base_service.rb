@@ -7,22 +7,15 @@ class ShoppingCart
         @errors = { cart_message: nil, items: { ids: [], message: nil } }
       end
 
-      def add_errors(*objects)
-        objects.each do |object|
-          cart_error(object) if object.is_a? ShoppingCart::Entities::Cart
-          cart_item_error(object) if object.is_a? ShoppingCart::Entities::CartItem
+      def add_errors(cart: nil, item: nil)
+        if cart.present? && !cart.valid?
+          errors[:cart_message] = cart.errors
         end
-      end
 
-      private
-
-      def cart_error(object)
-        errors[:cart_message] = object.errors
-      end
-
-      def cart_item_error(object)
-        errors[:items][:ids] << object.product_id
-        errors[:items][:message] ||= object.errors
+        if item.present? && !item.valid?
+          errors[:items][:ids] << item.product_id
+          errors[:items][:message] ||= item.errors
+        end
       end
     end
   end

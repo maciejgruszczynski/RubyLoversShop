@@ -22,7 +22,7 @@ class ShoppingCart
           invalid_items = items.select { |item| !item.valid? }
 
           invalid_items.each do |item|
-            add_errors(item)
+            add_errors(item: item)
           end
           Failure(message: errors)
         end

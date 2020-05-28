@@ -13,7 +13,7 @@ class ShoppingCart
           cart.store.add_item(item: cart_item)
           Success(cart)
         else
-          add_errors(cart_item)
+          add_errors(item: cart_item)
           Failure(message: errors)
         end
       end
