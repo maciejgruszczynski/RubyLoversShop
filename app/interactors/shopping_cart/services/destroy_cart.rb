@@ -3,9 +3,9 @@ class ShoppingCart
     class DestroyCart
       include Dry::Monads[:result]
 
-      def call(cart: )
-        cart.store.clear_cart
-        Success(cart)
+      def call(store: )
+        store.clear
+        Success(store)
       end
     end
   end

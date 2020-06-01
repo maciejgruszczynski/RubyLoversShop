@@ -3,7 +3,7 @@ class ShoppingCart
     class UpdateCart < BaseService
       include Dry::Monads[:result]
 
-      def call(cart:, items_after_update:)
+      def call(store:, items_after_update:)
         items = []
 
         items_after_update.each do |item|
@@ -15,9 +15,9 @@ class ShoppingCart
 
         if items.all? { |item| item.valid? }
           items.each do |item|
-            cart.store.add_item(item: item)
+            store.add_item(item: item)
           end
-          Success(cart)
+          Success(store)
         else
           invalid_items = items.select { |item| !item.valid? }
 

@@ -3,15 +3,15 @@ require 'active_support/core_ext/module/delegation'
 class ShoppingCart
   include Dry::Monads[:result]
 
-  attr_reader :cart
+  attr_reader :store
 
   def initialize(session)
-    @cart = Entities::Cart.new(session: session)
+    @store = Store.new(session: session)
   end
 
   def add_item(product_id:, quantity:)
     ShoppingCart::Services::AddItem.new.call(
-      cart: cart,
+      store: store,
       product_id: product_id,
       quantity: quantity
     )
@@ -19,7 +19,7 @@ class ShoppingCart
 
   def update_item(product_id:, quantity: )
     ShoppingCart::Services::UpdateItem.new.call(
-      cart: cart,
+      store: store,
       product_id: product_id,
       quantity: quantity
     )
@@ -27,39 +27,39 @@ class ShoppingCart
 
   def update_cart(items_after_update: )
     ShoppingCart::Services::UpdateCart.new.call(
-      cart: cart,
+      store: store,
       items_after_update: items_after_update
     )
   end
 
-  def destroy
-    ShoppingCart::Services::DestroyCart.new.call(cart: cart)
+  def destroy_cart
+    ShoppingCart::Services::DestroyCart.new.call(store: store)
   end
 
   def remove_item(product_id: )
     ShoppingCart::Services::RemoveItem.new.call(
-      cart: cart,
+      store: store,
       product_id: product_id
     )
   end
 
   def items
-    cart.items
+    store.items
   end
 
-  def count_items
-    cart.count_items
+  def items_count
+    store.items_count
   end
 
   def has_product?(product_id: )
-    cart.has_product?(product_id: product_id)
+    store.has_product?(product_id: product_id)
   end
 
   def product(product_id:)
-    cart.product(product_id: product_id)
+    store.product(product_id: product_id)
   end
 
   def value
-    cart.value
+    store.value
   end
 end

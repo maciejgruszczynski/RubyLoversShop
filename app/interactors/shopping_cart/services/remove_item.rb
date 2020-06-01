@@ -3,9 +3,9 @@ class ShoppingCart
     class RemoveItem
       include Dry::Monads[:result]
 
-      def call(cart:, product_id:)
-        cart.store.remove_item(product_id: product_id)
-        Success(cart)
+      def call(store:, product_id:)
+        store.remove_item(product_id: product_id)
+        Success(store)
       end
     end
   end

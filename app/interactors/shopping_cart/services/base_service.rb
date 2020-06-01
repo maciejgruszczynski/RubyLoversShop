@@ -7,9 +7,9 @@ class ShoppingCart
         @errors = { cart_message: nil, items: { ids: [], message: nil } }
       end
 
-      def add_errors(cart: nil, item: nil)
-        if cart.present? && !cart.valid?
-          errors[:cart_message] = cart.errors
+      def add_errors(store: nil, item: nil)
+        if store.present? && !store.valid?
+          errors[:cart_message] = store.errors
         end
 
         if item.present? && !item.valid?

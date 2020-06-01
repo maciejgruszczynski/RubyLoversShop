@@ -3,14 +3,14 @@ class ShoppingCart
     class AddItem < BaseService
       include Dry::Monads[:result]
 
-      def call(cart:, product_id:, quantity:)
+      def call(store:, product_id:, quantity:)
         cart_item = Entities::CartItem.new(product_id: product_id, quantity: quantity)
 
-        if cart.valid? && cart_item.valid?
-          cart.store.add_item(item: cart_item)
-          Success(cart)
+        if store.valid? && cart_item.valid?
+          store.add_item(item: cart_item)
+          Success(store)
         else
-          add_errors(cart: cart, item: cart_item)
+          add_errors(store: store, item: cart_item)
           Failure(message: errors)
         end
       end

@@ -23,7 +23,7 @@ class ShoppingCart
         Product.find(product_id)
       end
 
-      def count_items
+      def items_count
         items.count
       end
 
