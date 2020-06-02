@@ -74,16 +74,12 @@ describe 'product', type: :system do
 
         expect(page).to have_content 'RubyLoversShop' #needs this assertion to wait for cart to load
 
-        item = shirt.cart_items.last
-        cart = item.cart
-
-        expect(current_path).to eql("/carts/#{cart.id}")
-        expect(page).to have_content "Cart show (#{cart.identifier})"
+        expect(current_path).to eql("/carts")
         expect(page).to have_content 'Cart: $20.00'
 
         within('#cart') do
           expect(page).to have_link(shirt.name, href: "/products/#{shirt.id}")
-          expect(page).to have_select("items_#{item.id}_quantity", selected: '2')
+          expect(page).to have_content("items_#{item.id}_quantity", selected: '2')
           expect(page).to have_content('$10.00')
           expect(page).to have_content('$20.00')
           expect(page).to have_link('Remove from cart', href: "/cart_items/#{item.id}")

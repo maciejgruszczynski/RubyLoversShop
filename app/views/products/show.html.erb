@@ -3,9 +3,7 @@
   <%= @product.description %>
   <br>
   Price: <%= humanized_money_with_symbol @product.price %>
-  <%= form_with model: @cart_item do |form| %>
-    <%= form.hidden_field :cart_identifier, value: @current_cart.identifier %>
-    <%= form.hidden_field :product_id, value: @product.id %>
+  <%= form_with url: cart_items_path(product_id: @product.id), local: true, html: {method: url_method(product_id: @product.id)} do |form| %>
     <%= form.select :quantity, (1..5) %>
     <%= form.submit("Add to cart", name: nil) %>
   <% end %>

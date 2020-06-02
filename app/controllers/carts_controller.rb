@@ -1,12 +1,11 @@
 class CartsController < ApplicationController
   def show
-    redirect_to root_path if @current_cart.new_record?
   end
 
   def update
-    result = UpdateCart.new.call(cart: @current_cart, items_after_update: update_params[:items])
+    result = current_cart.update_cart(items_after_update: update_params[:items])
 
-    redirect_to cart_path(@current_cart)
+    redirect_to carts_path
     if result.success?
       flash[:notice] = 'Cart updated'
     else
@@ -15,14 +14,14 @@ class CartsController < ApplicationController
   end
 
   def destroy
-    CleanCart.new.call(cart: @current_cart)
-    redirect_to cart_path(@current_cart)
+    result = current_cart.destroy_cart
+    redirect_to carts_path
     flash[:notice] = 'Cart has been cleaned up'
   end
 
   private
 
   def update_params
-    params.permit(:id, items: {})
+    params.permit(items: {})
   end
 end

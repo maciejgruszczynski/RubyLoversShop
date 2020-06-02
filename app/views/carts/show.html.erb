@@ -1,36 +1,42 @@
-<h1>Cart show (<%= @current_cart.identifier %>)</h1>
+<h1>Cart show </h1>
 
 <div id="cart">
-  <%= form_with model: @current_cart, url: cart_path(@current_cart), method: :patch do |form| %>
+  <%= form_with url: carts_path, local: true, html: {method: :patch} do |form| %>
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col"><%= t('product') %></th>
-          <th scope="col"><%= t('quantity') %></th>
-          <th scope="col"><%= t('unit_price') %></th>
-          <th scope="col"><%= t('total') %></th>
-          <th scope="col"></th>
+          <th scope="col">
+            <%= t('product') -%>
+          </th>
+          <th scope="col">
+            <%= t('quantity') -%>
+          </th>
+          <th scope="col">
+            <%= t('unit_price') -%>
+          </th>
+          <th scope="col">
+            <%= t('total_price') -%>
+          </th>
+          <th>
+          </th>
         </tr>
       </thead>
       <tbody>
-        <% @current_cart.items.each.with_index(1) do |item, index| %>
-          <%= fields_for 'items[]', item do |f| %>
+        <% current_cart.items.each do |item| %>
+          <%= fields_for 'items[]', item.product_id do |f| %>
             <tr>
-              <td><%= index %></td>
-              <td><%= link_to item.product_name, product_path(item.product_id) %></td>
-              <td><%= f.select :quantity, options_for_select(1..5, item.quantity)%></td>
-              <td><%= humanized_money_with_symbol item.unit_price %></td>
-              <td><%= humanized_money_with_symbol item.final_price %></td>
-              <td><%= link_to 'Remove from cart', cart_item_path(item.id), method: :delete %></td>
+              <td><%= link_to current_cart.product(product_id: item.product_id).name, product_path(item.product_id) %></td>
+              <td><%= f.text_field :quantity, value: item.quantity %></td>
+              <td><%= humanized_money_with_symbol current_cart.product(product_id: item.product_id).price %></td>
+              <td><%= total_price(item.product_id, item.quantity.to_i) %></td>
+              <td><%= link_to 'Remove from cart', cart_item_path(product_id: item.product_id), method: :delete %></td>
             </tr>
           <% end %>
         <% end %>
       </tbody>
     </table>
+    <%= link_to 'Back', :back %>
     <%= form.submit('Update', name: false) %>
-    <%= link_to 'Clean cart', cart_path(@current_cart), method: :delete, class: "btn btn-outline-dark btn-sm" %>
+    <%= link_to 'Clean cart', cart_path, method: :delete, class: "btn btn-outline-dark btn-sm" %>
   <% end %>
 </div>
-
-<%= link_to 'Back', :back %>

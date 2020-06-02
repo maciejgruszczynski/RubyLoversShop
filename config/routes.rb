@@ -4,15 +4,16 @@ Rails.application.routes.draw do
     collection do
       get :search
     end
-    member do
-      post :add_to_cart
-      delete :remove_from_cart
-    end
   end
 
-  resources :carts, only: [:show, :update, :destroy]
+  get 'carts', to: 'carts#show'
+  delete 'cart', to: 'carts#destroy'
+  patch 'carts', to: 'carts#update'
 
-  resources :cart_items, only: [:create, :update, :destroy]
+  post 'cart_items', to: 'cart_items#create'
+  patch 'cart_items', to: 'cart_items#update'
+  delete 'cart_item', to: 'cart_items#destroy'
+
 
   root to: 'products#index'
 

@@ -1,14 +1,5 @@
 module ApplicationHelper
 
-  def link_to_cart(current_cart)
-    if current_cart.new_record?
-      link_to('Cart: empty', '#')
-    else
-      cart_value = humanized_money_with_symbol current_cart.items.map {|i| i.final_price }.sum
-      link_to("Cart: #{cart_value}", cart_path(current_cart))
-    end
-  end
-
   def will_paginate(collection_or_options = nil, options = {})
     if collection_or_options.is_a? Hash
       options, collection_or_options = collection_or_options, nil

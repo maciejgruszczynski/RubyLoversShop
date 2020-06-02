@@ -4,5 +4,5 @@
     <%= f.text_field :q, value: params[:q], required: true, class: "form-control mr-sm-2" %>
     <%= f.submit 'Search', name: nil, class: "btn btn-outline-success my-2 my-sm-0" %>
   <% end %>
-  <%= link_to_cart(@current_cart) %>
+  <%= link_to "#{t('cart')} (#{ humanized_money_with_symbol current_cart.value} / #{pluralize(current_cart.items_count, 'item')})", carts_path %>
 </nav>

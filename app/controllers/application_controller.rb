@@ -1,14 +1,6 @@
 class ApplicationController < ActionController::Base
-  before_action :set_cart
-
-  private
-
-  def set_cart(cart = nil)
-    @current_cart ||=
-    if session[:cart].present?
-      Cart.find_by(identifier: session[:cart])
-    else
-      result = CreateTempCart.new.call
-    end
+  helper_method :current_cart
+  def current_cart
+    @_current_cart ||= ShoppingCart.new(session)
   end
 end
