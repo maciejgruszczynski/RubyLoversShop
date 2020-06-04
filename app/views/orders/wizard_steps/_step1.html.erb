@@ -1,0 +1,5 @@
+<%= form_for @order_form, url: orders_path(step: @checkout.current_step), local: true, html: { method: 'PATCH' } do |form| %>
+  <%= form.text_field :current_step, value: @checkout.current_step %>
+  <%= form.text_field :shippment_method, value: 'shippment_method' %>
+  <%= form.submit("next") %>
+<% end %>

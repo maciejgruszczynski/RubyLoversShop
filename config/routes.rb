@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   patch 'cart_items', to: 'cart_items#update'
   delete 'cart_item', to: 'cart_items#destroy'
 
+  resource :orders
+
 
   root to: 'products#index'
 

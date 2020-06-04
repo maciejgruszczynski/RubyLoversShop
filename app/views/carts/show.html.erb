@@ -38,5 +38,6 @@
     <%= link_to 'Back', :back %>
     <%= form.submit('Update', name: false) %>
     <%= link_to 'Clean cart', cart_path, method: :delete, class: "btn btn-outline-dark btn-sm" %>
+    <%= link_to 'Checkout', orders_path,  method: :post, class: "btn btn-outline-dark btn-sm" %>
   <% end %>
 </div>
