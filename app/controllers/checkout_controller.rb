@@ -7,7 +7,9 @@ class CheckoutController < ApplicationController
   end
 
   def update
+    binding.pry
     checkout = build_checkout
+    checkout_session.merge!({ checkout.current_step.name => checkout_params })
     redirect_to checkout_path(step: checkout.next_step.name)
   end
 
@@ -17,7 +19,11 @@ class CheckoutController < ApplicationController
     @checkout ||=  Checkout.new(step: params[:step])
   end
 
+  def checkout_session
+    session[:checkout] || session[:checkout] = {}
+  end
+
   def checkout_params
-    params.require(:checkout).permit()
+    params.require(:checkout).permit!
   end
 end
