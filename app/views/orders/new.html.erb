@@ -1,6 +1,9 @@
-<%= form_with url: orders_path, local: true do |form| %>
+<%= form_with model: @order, local: true do |form| %>
+  <%= debug @form %>
   <%= form.submit("next", name: nil) %>
 <% end %>
 </p>
+
+<%= render "orders/wizard_steps/#{@form.partial_name}" %>
 
 <%= link_to "back", :back %>

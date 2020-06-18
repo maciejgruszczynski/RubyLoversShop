@@ -14,9 +14,11 @@ Rails.application.routes.draw do
   patch 'cart_items', to: 'cart_items#update'
   delete 'cart_item', to: 'cart_items#destroy'
 
-  resource :orders
-
+  get 'checkout/(:step)/(:order_id)', to: 'checkout#show', as: :checkout
+  patch 'checkout/(:step)/(:order_id)', to: 'checkout#update'
+  # resources :orders do
+    # get ':step', to: 'orders#new', as: :checkout, on: :collection
+  # end
 
   root to: 'products#index'
-
 end

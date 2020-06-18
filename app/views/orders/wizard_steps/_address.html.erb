@@ -1,0 +1,4 @@
+<%= form_with url: orders_path, local: true, html: { method: 'PATCH' } do |form| %>
+  <%= form.text_field :shippment_method, value: 'shippment_method' %>
+  <%= form.submit("next") %>
+<% end %>

@@ -1,0 +1,5 @@
+<h1>ADDRESS</h1>
+<%= form_with model: @form, url: checkout_path, scope: :checkout, local: true, html: { method: :patch } do |form| %>
+  <%= form.text_field :shippment_method, value: 'shippment_method' %>
+  <%= form.submit "Save & Continue"%>
+<% end %>
