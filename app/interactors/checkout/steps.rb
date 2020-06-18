@@ -1,9 +1,20 @@
 class Checkout
   module Steps
     class Base
+      def name
+        raise NotImplementedError
+      end
+
+      def form
+        raise NotImplementedError
+      end
 
       def view_template
         name
+      end
+
+      def render_step(step)
+        step
       end
 
     end
@@ -28,7 +39,7 @@ class Checkout
       end
 
       def form
-        #Forms::Address
+        Checkout::Forms::DeliveryMethod
       end
     end
   end

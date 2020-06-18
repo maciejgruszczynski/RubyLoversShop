@@ -5,23 +5,34 @@ class Checkout
     @step = step
   end
 
-  def create_order(cart:)
-    Checkout::Services::CreateOrder.new.call(cart: cart)
-  end
-
   def current_step
-    available_steps.find {|step| step == } || available_steps.first
+    current_step = available_steps[step] || available_steps.first[1]
   end
 
-  def next_step(step: current_step)
-    current_step_id = available_steps.index(step)
-    available_steps[current_step_id + 1].new.name
+  def next_step
+    next_step_name = step_names[current_step_id + 1]
+    available_steps[next_step_name] || current_step
+  end
+
+  def previous_step
+    previous_step_name = step_names[current_step_id - 1]
+    available_steps[previous_step_name] || current_step
   end
 
   def available_steps
-    [
-      Checkout::Steps::Address,
-      Checkout::Steps::DeliveryMethod
-    ]
+    {
+      'address' => Checkout::Steps::Address.new,
+      'delivery_method' => Checkout::Steps::DeliveryMethod.new
+    }
+  end
+
+  private
+
+  def step_names
+    available_steps.keys
+  end
+
+  def current_step_id
+    available_steps.keys.index(current_step.name)
   end
 end

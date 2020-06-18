@@ -1,1 +1,7 @@
 <h1>Step 2: Delivery Method </h1>
+
+<%= form_with model: @form, scope: :checkout, url: checkout_update_path(step: params[:step]), local: true, html: {method: :patch} do |form| %>
+  <%= form.text_field :address %>
+  <%= form.submit %>
+<% end %>
+ <%= link_to "Previous step", checkout_path(step: @checkout.previous_step.name) %>

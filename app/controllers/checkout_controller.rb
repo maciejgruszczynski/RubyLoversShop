@@ -1,19 +1,16 @@
 class CheckoutController < ApplicationController
 
   def show
-    #binding.pry
-    checkout = build_checkout
-    @form = checkout.current_step.new.form.new
-    @next_step = checkout.next_step
+    @checkout = build_checkout
+    @form = @checkout.current_step.form.new
 
-    render checkout.current_step.new.view_template
+    render @checkout.current_step.view_template
   end
 
   def update
-    #binding.pry
-    #checkout = build_checkout
-
-    redirect_to checkout_path(step: params[:step])
+    checkout = build_checkout
+    binding.pry
+    redirect_to checkout_path(step: checkout.next_step.name)
   end
 
   private
