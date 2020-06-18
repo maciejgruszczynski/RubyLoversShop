@@ -16,7 +16,6 @@ class Checkout
       def render_step(step)
         step
       end
-
     end
 
     class Address < Base

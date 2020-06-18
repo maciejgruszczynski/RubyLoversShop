@@ -1,5 +1,4 @@
 class CheckoutController < ApplicationController
-
   def show
     @checkout = build_checkout
     @form = @checkout.current_step.form.new
@@ -9,7 +8,6 @@ class CheckoutController < ApplicationController
 
   def update
     checkout = build_checkout
-    binding.pry
     redirect_to checkout_path(step: checkout.next_step.name)
   end
 
