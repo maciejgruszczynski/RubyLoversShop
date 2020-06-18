@@ -1,0 +1,6 @@
+<h1>Step 1: Address </h1>
+
+<%= form_with model: @form, scope: :checkout, url: checkout_update_path(step: @next_step), local: true, html: {method: :patch} do |form| %>
+  <%= form.text_field :address %>
+  <%= form.submit %>
+<% end %>
