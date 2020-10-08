@@ -51,7 +51,7 @@ class Checkout
     { 'address'=>{}, 'delivery_method'=>{}, 'payment'=>{} }
   end
 
-  #private
+  private
 
   def step_names
     available_steps.keys
