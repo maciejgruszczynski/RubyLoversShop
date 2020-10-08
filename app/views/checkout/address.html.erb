@@ -1,6 +1,57 @@
 <h1>Step 1: Address </h1>
 
-<%= form_with model: @form, scope: :checkout, url: checkout_update_path(step: params[:step]), local: true, html: {method: :patch} do |form| %>
-  <%= form.text_field :address %>
-  <%= form.submit %>
+<% if @form.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @form, scope: :checkout, url: checkout_update_path(step: params[:step]), local: true, html: { method: :patch } do |form| %>
+  <div class="form-group row">
+    <%= form.label :first_name, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-4">
+      <%= form.text_field :first_name, value: @form.first_name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :last_name, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-4">
+      <%= form.text_field :last_name, value: @form.last_name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :address_line, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-4">
+      <%= form.text_field :address_line, value: @form.address_line, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :city, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-4">
+      <%= form.text_field :city, value: @form.city, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :postal_code, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-2">
+      <%= form.text_field :postal_code, value: @form.postal_code, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :phone_number, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-2">
+      <%= form.text_field :phone_number, value: @form.phone_number, class: "form-control" %>
+    </div>
+  </div>
+
+  <%= form.submit 'Next' %>
 <% end %>

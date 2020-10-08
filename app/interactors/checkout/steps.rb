@@ -19,8 +19,6 @@ class Checkout
     end
 
     class Address < Base
-      attr_accessor :address
-
       def name
         'address'
       end
@@ -31,14 +29,28 @@ class Checkout
     end
 
     class DeliveryMethod < Base
-      attr_accessor :delivery_method
-
       def name
         'delivery_method'
       end
 
       def form
         Checkout::Forms::DeliveryMethod
+      end
+    end
+
+    class Payment < Base
+      def name
+        'payment'
+      end
+
+      def form
+        Checkout::Forms::Payment
+      end
+    end
+
+    class OrderSummary < Base
+      def name
+        'summary'
       end
     end
   end
