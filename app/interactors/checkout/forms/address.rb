@@ -3,11 +3,11 @@ class Checkout
     class Address < Base
       attr_accessor :first_name, :last_name, :address_line, :city, :postal_code, :phone_number
 
-      validates :first_name, presence: true
-      validates :last_name, presence: true
+      validates :first_name,   presence: true
+      validates :last_name,    presence: true
       validates :address_line, presence: true
-      validates :city, presence: true
-      validates :postal_code, presence: true
+      validates :city,         presence: true
+      validates :postal_code,  presence: true
       validates :phone_number, presence: true
 
       def initialize(attributes = {})

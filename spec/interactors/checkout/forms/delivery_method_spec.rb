@@ -22,7 +22,6 @@ RSpec.describe Checkout::Forms::DeliveryMethod, type: :model do
       it { expect(subject).to validate_presence_of(:name) }
       it { expect(subject).to validate_inclusion_of(:name).in_array(%w(DHL Inpost)) }
       it { expect(subject.valid?).to eq true }
-
     end
 
     context 'initialize' do

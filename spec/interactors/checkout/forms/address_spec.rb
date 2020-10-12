@@ -24,7 +24,6 @@ RSpec.describe Checkout::Forms::Address, type: :model do
       it { expect(subject).to validate_presence_of(:postal_code) }
       it { expect(subject).to validate_presence_of(:phone_number) }
       it { expect(subject.valid?).to eq true }
-
     end
 
     context 'initialize' do

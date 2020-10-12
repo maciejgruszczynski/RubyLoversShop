@@ -1,7 +1,6 @@
 class ShoppingCart
   module Entities
     class CartItem
-
       attr_accessor :product_id, :quantity
       attr_reader :errors
 

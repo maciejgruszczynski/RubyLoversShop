@@ -3,10 +3,6 @@ class CheckoutController < ApplicationController
     @checkout = build_checkout
     checkout_session
 
-    if @checkout.first_step? && session[:cart].present?
-      reset_checkout
-    end
-
     if @checkout.not_last_step?
       @form = @checkout.current_step.form.new(session[:checkout][@checkout.current_step.name])
     else
@@ -48,9 +44,5 @@ class CheckoutController < ApplicationController
 
   def reset_cart
     session[:cart] = {}
-  end
-
-  def reset_checkout
-    session[:checkout] = @checkout.empty_session
   end
 end

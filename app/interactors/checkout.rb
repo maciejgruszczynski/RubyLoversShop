@@ -38,7 +38,7 @@ class Checkout
   end
 
   def first_step?
-    step == step_names.first || step.nil?|| cart == {}
+    step == step_names.first || step.nil? || cart == {}
   end
 
   def order_summary(checkout:)

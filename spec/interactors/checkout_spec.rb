@@ -6,7 +6,7 @@ RSpec.describe Checkout do
   describe 'steps' do
     let(:session) { { 'cart' => {'1' => '2' }} }
 
-    context 'step is null' do
+    context 'when no step' do
       let(:session) { { 'address'=>{}, 'delivery_method'=>{}, 'payment'=>{} } }
       let(:step) { nil }
 
@@ -23,7 +23,7 @@ RSpec.describe Checkout do
       end
     end
 
-    context 'step == address' do
+    context 'when on address step' do
       let(:step) { 'address' }
 
       it 'current step should be address' do
@@ -39,7 +39,7 @@ RSpec.describe Checkout do
       end
     end
 
-    context 'step == delivery_method' do
+    context 'when on delivery_method step' do
       let(:step) { 'delivery_method' }
 
       it 'current step should be delivery_method' do
@@ -55,7 +55,7 @@ RSpec.describe Checkout do
       end
     end
 
-    context 'step == payment' do
+    context 'when on payment step' do
       let(:step) { 'payment' }
 
       it 'current step should be payment' do
@@ -71,7 +71,7 @@ RSpec.describe Checkout do
       end
     end
 
-    context 'step == summary' do
+    context 'when on summary step' do
       let(:step) { 'summary' }
 
       it 'current step should be summary' do
@@ -86,7 +86,6 @@ RSpec.describe Checkout do
         expect(subject.next_step.name).to eq 'summary'
       end
     end
-
   end
 
   describe 'order_summary' do
@@ -112,5 +111,4 @@ RSpec.describe Checkout do
       expect(subject.order_summary(checkout: checkout).is_a?(Checkout::OrderSummary)).to eq true
     end
   end
-
 end

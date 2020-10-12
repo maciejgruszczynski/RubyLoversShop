@@ -15,7 +15,7 @@
           end
         end
 
-        it 'can display produt details' do
+        it 'can display product details' do
           visit '/products'
           click_on shirt.name
 
