@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RubyLoversShop</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render '/layouts/admin/shared/navbar' %>
+    <% if flash[:notice] %>
+      <%= render '/layouts/admin/shared/notice' %>
+    <% end %>
+
+    <div class="row mt-4">
+      <% unless @disabled_sidebar %>
+        <div class="col-2 ">
+          <%= render '/layouts/admin/shared/sidebar' %>
+        </div>
+      <% end %>
+      <div class="col-10">
+        <main role="main">
+          <%= yield %>
+        </main>
+      </div>
+    </div>
+
+    <%= render '/layouts/admin/shared/footer' %>
+
+    <%= console if Rails.env.development? %>
+    
+  </body>
+</html>

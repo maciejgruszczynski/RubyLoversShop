@@ -24,5 +24,23 @@ if Rails.env.development?
   DeliveryMethod.create!(name: 'Inpost')
 
   puts 'Delivery methods created'
-end
 
+  puts 'Creating orders'
+
+  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "USD", delivery_method: 'DHL',
+                identifier: rand(1000..9999), customer_email: "test_1@example.com", state: "new")
+
+  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "USD", delivery_method: 'DHL',
+                identifier: rand(1000..9999), customer_email: "test_2@example.com", state: "with_customer_data")
+
+  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "USD", delivery_method: 'DHL',
+                identifier: rand(1000..9999), customer_email: "test_3@example.com", state: "with_delivery_method")
+
+  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "USD", delivery_method: 'DHL',
+                identifier: rand(1000..9999), customer_email: "test_4@example.com", state: "waiting_for_payment")
+
+  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "USD", delivery_method: 'DHL',
+                identifier: rand(1000..9999), customer_email: "test_5@example.com", state: "paid")
+
+  puts 'Orders created'
+end

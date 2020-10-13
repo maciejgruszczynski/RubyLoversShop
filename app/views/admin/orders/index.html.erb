@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">
+            <%= t('identifier') -%>
+          </th>
+          <th scope="col">
+            <%= t('state') -%>
+          </th>
+          <th scope="col">
+            <%= t('delivery_method') -%>
+          </th>
+          <th scope="col">
+            <%= t('customer_email') -%>
+          </th>
+          <th scope="col">
+            <%= t('total_price') -%>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @orders %>
+      </tbody>
+    </table>
+  </div>
+</div>

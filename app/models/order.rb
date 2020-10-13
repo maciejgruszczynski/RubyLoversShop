@@ -28,6 +28,6 @@ class Order < ApplicationRecord
   end
 
   def final_price
-    Money.new(self.final_price_cents, self.final_price_currency)
+    Money.new(self.final_price_net_cents, self.final_price_net_currency)
   end
 end
