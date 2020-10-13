@@ -17,6 +17,7 @@ RSpec.configure do |config|
   require 'capybara/rspec'
   require 'money-rails/test_helpers'
   require 'rack_session_access/capybara'
+  require 'aasm/rspec'
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

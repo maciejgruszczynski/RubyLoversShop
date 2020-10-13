@@ -103,10 +103,12 @@ CREATE TABLE public.orders (
     id bigint NOT NULL,
     final_price_net_cents integer DEFAULT 0 NOT NULL,
     final_price_net_currency character varying DEFAULT 'USD'::character varying NOT NULL,
-    shippment_method character varying,
-    confirmed_at timestamp without time zone,
+    delivery_method character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    identifier character varying,
+    customer_email character varying,
+    state character varying
 );
 
 
@@ -324,6 +326,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200517230720'),
 ('20200517230854'),
 ('20200602210247'),
-('20201004175114');
+('20201004175114'),
+('20201013111441');
 
 
