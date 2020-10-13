@@ -9,7 +9,7 @@ RSpec.describe ShoppingCart do
       let(:session) { {} }
 
       it 'returns {}' do
-        expect(store.content).to eq ({})
+        expect(store.content).to eq({})
       end
     end
 
@@ -17,7 +17,7 @@ RSpec.describe ShoppingCart do
       let(:session) { { :cart => { '1' => 2 } } }
 
       it 'returns cart content' do
-        expect(store.content).to eq ({'1' => 2})
+        expect(store.content).to eq( {'1' => 2} )
       end
     end
   end

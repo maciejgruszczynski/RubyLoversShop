@@ -35,7 +35,7 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    result = current_cart.remove_item(product_id: cart_item_params[:product_id])
+    current_cart.remove_item(product_id: cart_item_params[:product_id])
     redirect_to carts_path
     flash[:notice] = 'Product has been removed from cart'
   end

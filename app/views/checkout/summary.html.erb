@@ -1,0 +1,44 @@
+<h1>Step 4: Summary </h1>
+
+<h2>Address:</h2>
+<p>
+  first_name: <%= @order_summary.address.first_name %> </br>
+  last_name: <%= @order_summary.address.last_name %> </br>
+  address_line: <%= @order_summary.address.address_line %> </br>
+  city: <%= @order_summary.address.city %> </br>
+  postal_code: <%= @order_summary.address.postal_code %> </br>
+  phone_number: <%= @order_summary.address.phone_number %> </br>
+</p>
+
+<h2>Delivery method:</h2>
+<p>
+  delivery method: <%= @order_summary.delivery_method.name %>
+</p>
+
+<h2>Payment:</h2>
+<p>
+  OK
+</p>
+
+<h2>Cart value: <%= humanized_money_with_symbol @order_summary.cart.value %></h2>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">product</th>
+    <th scope="col">quantity</th>
+    <th scope="col">unit_price</th>
+    <th scope="col">total_price</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @order_summary.cart.items.each do |item| %>
+      <tr>
+        <td><%= @order_summary.cart.product(product_id: item.product_id).name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= humanized_money_with_symbol @order_summary.cart.product(product_id: item.product_id).price %></td>
+        <td><%= total_price(item.product_id, item.quantity.to_i) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

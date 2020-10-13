@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   patch 'cart_items', to: 'cart_items#update'
   delete 'cart_item', to: 'cart_items#destroy'
 
+  get '/checkout/(:step)', to: 'checkout#show', as: :checkout
+  patch '/checkout/(:step)', to: 'checkout#update', as: :checkout_update
 
   root to: 'products#index'
 

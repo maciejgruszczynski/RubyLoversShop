@@ -8,7 +8,7 @@ RSpec.describe ShoppingCart::Validators::CartItemQuantity do
     context 'valid item' do
       let(:quantity) { 5 }
 
-      it 'returns sucess' do
+      it 'returns success' do
         expect(validator.success?).to eq true
       end
     end
