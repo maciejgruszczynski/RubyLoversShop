@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   patch '/checkout/(:step)', to: 'checkout#update', as: :checkout_update
 
   namespace :admin do
-    resources :orders, only: [:index]
+    resources :orders, only: :index
 
     root to: 'orders#index'
   end

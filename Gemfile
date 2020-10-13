@@ -15,6 +15,7 @@ gem 'money-rails', '~>1.12'
 gem 'will_paginate', '~> 3.1.0'
 gem 'pg_search', '~> 2.3', '>= 2.3.2'
 gem 'dry-monads', '~> 1.3', '>= 1.3.5'
+gem 'ransack'
 
 group :development, :test do
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
