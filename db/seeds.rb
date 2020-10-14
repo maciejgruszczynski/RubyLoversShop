@@ -43,4 +43,10 @@ if Rails.env.development?
                 identifier: rand(1000..9999), customer_email: "test_5@example.com", state: "paid")
 
   puts 'Orders created'
+
+  puts 'Creating Admin'
+
+  AdminUser.create!(email: 'admin@admin.pl', password: 'Password', password_confirmation: 'Password')
+
+  puts 'Admin created'
 end

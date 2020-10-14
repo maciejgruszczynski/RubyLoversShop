@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  devise_for :admin_users
+  devise_for :users
+
   resources :products, only: [:index, :show, :destroy] do
     collection do
       get :search
@@ -24,5 +27,4 @@ Rails.application.routes.draw do
   end
 
   root to: 'products#index'
-
 end
