@@ -2,11 +2,10 @@ require 'rails_helper'
 
 describe 'orders', type: :system do
   let(:admin) { create(:admin_user) }
-  let(:order) { create(:order) }
+  let!(:order) { create(:order) }
 
   context 'list of orders' do
     before do
-      order.save!
       login_as(admin, scope: :admin_user)
     end
 

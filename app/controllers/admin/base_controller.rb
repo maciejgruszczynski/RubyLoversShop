@@ -1,5 +1,5 @@
 module Admin
-  class ApplicationController < ActionController::Base
+  class BaseController < ApplicationController
     before_action :authenticate_admin_user!
 
     layout 'admin/application'

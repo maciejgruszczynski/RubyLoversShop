@@ -1,5 +1,5 @@
 module Admin
-  class OrdersController < ApplicationController
+  class OrdersController < BaseController
     def index
       @q = Order.ransack(params[:q])
       @orders = @q.result
