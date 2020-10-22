@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
+gem 'aasm'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
 gem 'puma', '~> 4.1'
@@ -14,6 +15,8 @@ gem 'money-rails', '~>1.12'
 gem 'will_paginate', '~> 3.1.0'
 gem 'pg_search', '~> 2.3', '>= 2.3.2'
 gem 'dry-monads', '~> 1.3', '>= 1.3.5'
+gem 'ransack'
+gem 'devise'
 
 group :development, :test do
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'

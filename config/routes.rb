@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  devise_for :admin_users
+  devise_for :users
+
   resources :products, only: [:index, :show, :destroy] do
     collection do
       get :search
@@ -17,6 +20,11 @@ Rails.application.routes.draw do
   get '/checkout/(:step)', to: 'checkout#show', as: :checkout
   patch '/checkout/(:step)', to: 'checkout#update', as: :checkout_update
 
-  root to: 'products#index'
+  namespace :admin do
+    resources :orders, only: :index
 
+    root to: 'orders#index'
+  end
+
+  root to: 'products#index'
 end

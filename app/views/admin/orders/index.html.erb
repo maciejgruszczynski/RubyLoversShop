@@ -1,0 +1,39 @@
+<%= search_form_for [:admin, @q] do |f| %>
+
+  <%= f.label :customer_email_cont %>
+  <%= f.search_field :customer_email_cont %>
+
+  <%= f.label :state_cont %>
+  <%= f.search_field :state_cont %>
+
+  <%= f.submit %>
+<% end %>
+
+<section id="orders">
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">
+          <%= t('identifier') -%>
+        </th>
+        <th scope="col">
+          <%= t('state') -%>
+        </th>
+        <th scope="col">
+          <%= t('delivery_method') -%>
+        </th>
+        <th scope="col">
+          <%= t('customer_email') -%>
+        </th>
+        <th scope="col">
+          <%= t('total_price') -%>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <%= render @orders %>
+      </tbody>
+    </table>
+  </div>
+</section>

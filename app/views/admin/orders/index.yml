@@ -1,0 +1,7 @@
+en:
+  identifier: Order identifier
+  state: State
+  delivery_method: Delivery method
+  customer_email: Customer email
+  total_price: Order value
+
