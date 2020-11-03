@@ -46,6 +46,13 @@ class Checkout
       def form
         Checkout::Forms::Payment
       end
+
+      #def perform_step_actions(checkout:)
+      #  len = 8
+      # identifier = SecureRandom.alphanumeric(len)
+
+      # Cart.create(identifier: identifier, final_price_cents: checkout.cart.value)
+      #end
     end
 
     class OrderSummary < Base

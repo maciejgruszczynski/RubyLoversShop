@@ -111,4 +111,23 @@ RSpec.describe Checkout do
       expect(subject.order_summary(checkout: checkout).is_a?(Checkout::OrderSummary)).to eq true
     end
   end
+
+  describe 'perform actions' do
+    context 'when no step' do
+      let(:session) { { 'address'=>{}, 'delivery_method'=>{}, 'payment'=>{} } }
+      let(:step) { nil }
+
+      it 'should not perform any action' do
+        expect(subject.current_step.perform_step_actions).to be true
+      end
+    end
+
+    context 'when on payment step' do
+      let(:step) { 'payment' }
+
+      it 'should not perform any action' do
+        expect { subject.current_step.perform_step_actions }.to_change { Order.count }.by(1)
+      end
+    end
+  end
 end

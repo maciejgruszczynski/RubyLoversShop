@@ -26,5 +26,13 @@ Rails.application.routes.draw do
     root to: 'orders#index'
   end
 
+  namespace :checkout do
+    namespace :api do
+      namespace :v1 do
+        post 'p24/url_status'
+      end
+    end
+  end
+
   root to: 'products#index'
 end

@@ -17,10 +17,14 @@ gem 'pg_search', '~> 2.3', '>= 2.3.2'
 gem 'dry-monads', '~> 1.3', '>= 1.3.5'
 gem 'ransack'
 gem 'devise'
+gem 'rack-cors'
+gem 'http'
+
 
 group :development, :test do
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'pry-rails'
+  gem 'dotenv-rails'
 end
 
 group :development do
