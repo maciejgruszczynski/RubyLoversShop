@@ -43,26 +43,18 @@ class Checkout
       validates :p24_encoding, length: { maximum: 15 }, inclusion: { in: ALLOWED_ENCODINGS }
 
 
-      def initialize(attributes = {})
-        verify_presence_of_attributes(attributes)
-
-        #attributes.each do |attr, val|
-        #  raise ArgumentError unless PERMITTED_ATTRIBUTES.include?(attr)
-
-        #  define_singleton_method("#{attr}=") { |val| attributes[attr] = val }
-        # define_singleton_method(attr) { attributes[attr] }
-        #end
+      def initialize(checkout)
         @p24_merchant_id = ENV['P24_MERCHANT_ID']
         @p24_pos_id = ENV['P24_POS_ID']
-        @p24_session_id = order_identifier
-        @p24_url_return = 'http://c4fa2aad7dbe.ngrok.io/checkout/summary'
-        @p24_url_status = 'http://c4fa2aad7dbe.ngrok.io/checkout/api/v1/p24/url_status'
+        @p24_session_id = checkout.order.identifier
+        @p24_url_return = ENV['P24_URL_RETURN']
+        @p24_url_status = ENV['P24_URL_STATUS']
         @p24_api_version = ENV['P24_API_VERSION']
-        @p24_amount = 720
-        @p24_currency = 'PLN'
+        @p24_amount = checkout.order.final_price_net_cents
+        @p24_currency = checkout.order.final_price_net_currency
         @p24_description = order_description
         @p24_sign = generate_p24_sign
-        @p24_email = 'a@a.pl'
+        @p24_email = checkout.order.customer_email
       end
 
       #according to p24 spec - 1 => credit card 16 => all payment methods
@@ -71,7 +63,7 @@ class Checkout
       end
 
       def order_identifier
-        SecureRandom.base64(10).tr('+/=lIO0', 'abcdefg')
+        SecureRandom.base64(10).tr('+/=lIO0', 'abcdefg').upcase
       end
 
       def order_description
@@ -79,13 +71,12 @@ class Checkout
       end
 
       def generate_p24_sign
-        #str = "#{p24_session_id.to_s}|#{p24_merchant_id.to_s}|#{p24_amount.to_s}|#{p24_currency.to_s}|#{ENV['P24_CRC_KEY'].to_s}"
         checksum = [
           p24_session_id,
           p24_merchant_id,
           p24_amount,
           p24_currency,
-          '16cbaf7e158a7a7b'
+          ENV['P24_CRC_KEY']
         ].join('|')
 
         Digest::MD5.hexdigest(checksum)

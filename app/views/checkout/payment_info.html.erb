@@ -1,4 +1,4 @@
-<h1>Step 2: Delivery Method </h1>
+<h1>Step 3: Payment info </h1>
 <h2>Order: <%= @checkout.order.identifier %></h2>
 <h2>State: <%= @checkout.order.state %></h2>
 
@@ -15,11 +15,11 @@
 <%= form_with model: @form, scope: :checkout, url: checkout_update_path(step: params[:step]), local: true, html: { method: :patch } do |form| %>
   <div class="form-check">
     <div class="col-sm-4">
-      <%= form.collection_radio_buttons(:name, DeliveryMethod.all, :name, :name) %>
+      <%= form.text_field :customer_email %>
     </div>
   </div>
 
-  <%= link_to 'Back', checkout_path(step: 'address'), class: "btn btn-sm" %>
+  <%= link_to 'Back', checkout_path(step: 'delivery_method'), class: "btn btn-sm" %>
   <%= form.submit 'Next' %>
 
 <% end %>

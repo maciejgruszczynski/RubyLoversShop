@@ -5,7 +5,6 @@ class CheckoutController < ApplicationController
 
     if @checkout.not_last_step?
       @form = @checkout.current_step.form.new(session[:checkout][@checkout.current_step.name])
-      #@form = @checkout.current_step.form.new(checkout: checkout_session)
     else
       @order_summary = @checkout.order_summary(checkout: checkout_session)
     end
@@ -18,10 +17,11 @@ class CheckoutController < ApplicationController
     @form = @checkout.current_step.form.new(checkout_params)
 
     if @form.valid?
-      #@checkout.current_step.perform_actions
+      @checkout.current_step.update_order(@form)
       session[:checkout] = checkout_session.merge({ checkout.current_step.name => checkout_params })
+
       if checkout.next_step.name == 'payment'
-        form = @checkout.next_step.form.new(session[:checkout][@checkout.next_step.name])
+        form = @checkout.next_step.form.new(@checkout)
         result = Checkout::Services::SendToPrzelewy24.new.call(form)
 
         if result.success?
@@ -40,6 +40,8 @@ class CheckoutController < ApplicationController
 
   def build_checkout
     @checkout ||=  Checkout.new(step: params[:step], session: session)
+    checkout_session.merge!({ 'identifier' => @checkout.identifier })
+    @checkout
   end
 
   def checkout_session

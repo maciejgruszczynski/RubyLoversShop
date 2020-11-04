@@ -4,7 +4,7 @@ class Checkout
       class P24Controller < ApiController
         #post
         def url_status
-          order = Order.find_by(order_identifier: params[:p24_order_id])
+          Checkout::Services::ConfirmPayment.new.call(params)
         end
 
         private

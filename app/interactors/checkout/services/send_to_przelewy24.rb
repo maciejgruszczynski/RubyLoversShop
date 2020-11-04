@@ -8,7 +8,7 @@ class Checkout
       include Dry::Monads[:result]
 
       def initialize
-        @url = 'https://sandbox.przelewy24.pl/trnRegister'
+        @url = ENV['P24_TRN_REGISTER_URL']
       end
 
       def call(form)
@@ -16,7 +16,11 @@ class Checkout
         error = CGI::parse(response.body.to_s)[:error]
 
         if error.empty?
+          order = Order.find_by(identifier: form.p24_session_id)
           token = CGI::parse(response.body.to_s)['token'].first
+          order.update(payment_token: token)
+          order.pay!
+
           Success(token: token)
         end
       end

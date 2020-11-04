@@ -24,7 +24,7 @@ module RubyLoversShop
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
     config.active_record.schema_format = :sql
-    config.hosts << "c4fa2aad7dbe.ngrok.io"
+    config.hosts << "514a24a6b808.ngrok.io"
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

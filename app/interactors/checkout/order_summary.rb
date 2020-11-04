@@ -5,7 +5,7 @@ class Checkout
     def initialize(checkout:, cart:)
       @address = Forms::Address.new(checkout['address'])
       @delivery_method = Forms::DeliveryMethod.new(checkout['delivery_method'])
-      @payment = Forms::Payment.new(checkout['payment'])
+      @payment_info = Forms::PaymentInfo.new(checkout['payment_info'])
       @cart = cart
     end
   end
