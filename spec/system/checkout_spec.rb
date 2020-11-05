@@ -3,12 +3,17 @@ require 'rails_helper'
 describe 'checkout', type: :system do
 
   context 'place order based on cart content' do
+    let(:shirt) { create(:product, :shirt) }
+    let(:cart) { { shirt.id => 2 } }
+
     before do
       DeliveryMethod.create(name: 'DHL')
       DeliveryMethod.create(name: 'Inpost')
     end
 
     it 'places order' do
+      page.set_rack_session(cart: cart)
+
       visit '/carts'
       click_on 'Checkout'
 
@@ -31,21 +36,10 @@ describe 'checkout', type: :system do
 
       click_on 'Next'
 
-      expect(current_path).to eql('/checkout/payment')
-      expect(page).to have_content 'Step 3: Payment'
+      expect(current_path).to eql('/checkout/payment_info')
+      expect(page).to have_content 'Step 3: Payment info'
 
-      click_on 'Next'
-
-      expect(current_path).to eql('/checkout/summary')
-      expect(page).to have_content 'Step 4: Summary'
-
-      expect(page).to have_content 'first_name: Jan'
-      expect(page).to have_content 'last_name: Kowalski'
-      expect(page).to have_content 'address_line: Krucza 8/24'
-      expect(page).to have_content 'city: Wrocław'
-      expect(page).to have_content 'postal_code: 53-407'
-      expect(page).to have_content 'phone_number: 555 555 555'
-      expect(page).to have_content 'delivery method: DHL'
+      fill_in 'checkout_customer_email', with: 'a@a.pl'
     end
   end
 end

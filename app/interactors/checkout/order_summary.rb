@@ -1,6 +1,6 @@
 class Checkout
   class OrderSummary
-    attr_reader :address, :delivery_method, :payment, :cart
+    attr_reader :address, :delivery_method, :payment_info, :cart
 
     def initialize(checkout:, cart:)
       @address = Forms::Address.new(checkout['address'])

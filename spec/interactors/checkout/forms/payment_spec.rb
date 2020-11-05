@@ -2,37 +2,23 @@ require 'rails_helper'
 
 RSpec.describe Checkout::Forms::Payment, type: :model do
 
-  subject(:form) { described_class.new(attributes) }
+  subject(:form) { described_class.new(checkout) }
 
   describe 'validations' do
-    let(:attributes) {
+    let!(:order) { create(:order) }
+    let!(:product) { create(:product) }
+    let(:session) {
       {
-        'p24_merchant_id' => 111,
-        'p24_pos_id' => 1101,
-        'p24_session_id' => 'p24_session_id',
-        'p24_amount' => 1000,
-        'p24_currency' => 'PLN',
-        'p24_description' => 'description',
-        'p24_email' => 'p24_email',
-        'p24_client' => 'Jan Kowalski',
-        'p24_address' => 'Tęczowa 18',
-        'p24_zip' => '40-881',
-        'p24_city' => 'Katowice',
-        'p24_country' => 'PL',
-        'p24_phone' => '481321132123',
-        'p24_language' => 'pl',
-        'p24_url_return' => 'http://url.return',
-        'p24_url_status' => 'http://url.status',
-        'p24_time_limit' => 0,
-        'p24_wait_for_result' => 0,
-        'p24_channel' => 2,
-        'p24_shipping' => 0,
-        'p24_transfer_label' => 'opis_przelewu',
-        'p24_api_version' => '3.2',
-        'p24_sign' => '6c7f0bb62c046fbc89921dc3b2b23ede',
-        'p24_encoding' => 'UTF-8'
+        checkout: {
+          'identifier' => order.identifier
+        },
+        cart: {
+          product.id => '1'
+        }
       }
     }
+
+    let(:checkout) { Checkout.new(session: session) }
 
     context 'validate mandatory fields' do
       context 'p24_merchant_id' do
@@ -111,7 +97,7 @@ RSpec.describe Checkout::Forms::Payment, type: :model do
 
     context 'with credit cards payments (p24_channel == 1)' do
       before do
-        attributes['p24_channel'] = 1
+        subject.p24_channel = 1
       end
 
       context 'p24_client' do
@@ -133,7 +119,7 @@ RSpec.describe Checkout::Forms::Payment, type: :model do
 
     context 'with all payments (p24_channel == 16)' do
       before do
-        attributes['p24_channel'] = 16
+        subject.p24_channel = 16
       end
 
       context 'p24_client' do
@@ -212,11 +198,11 @@ RSpec.describe Checkout::Forms::Payment, type: :model do
   end
 
   describe 'initialization' do
-    context 'without attributes' do
-      let(:attributes) { nil }
+    context 'without checkout' do
+      let(:checkout) { nil }
 
       it 'should not initialize form without given attributes' do
-        expect { subject }.to raise_error(ArgumentError)
+        expect { subject }.to raise_error(NoMethodError)
       end
     end
   end

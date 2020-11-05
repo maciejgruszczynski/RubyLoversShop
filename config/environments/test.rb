@@ -48,4 +48,7 @@ Rails.application.configure do
 
   # Access to rack session
   config.middleware.use RackSessionAccess::Middleware
+
+  config.hosts << "127.0.0.1"
+  config.hosts << "sandbox.przelewy24.pl"
 end
