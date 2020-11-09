@@ -7,7 +7,7 @@ class Checkout
     class ConfirmPayment
 
       def initialize
-        @url = ENV['P24_TRN_VERIFY_URL']
+        @url = CREDENTIALS[:p24][:trn_verify_url]
       end
 
       def call(params)

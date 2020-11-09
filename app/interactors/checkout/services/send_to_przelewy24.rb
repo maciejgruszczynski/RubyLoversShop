@@ -8,7 +8,7 @@ class Checkout
       include Dry::Monads[:result]
 
       def initialize
-        @url = ENV['P24_TRN_REGISTER_URL']
+        @url = CREDENTIALS[:p24][:trn_register_url]
       end
 
       def call(form)

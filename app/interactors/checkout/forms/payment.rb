@@ -44,12 +44,12 @@ class Checkout
 
 
       def initialize(checkout)
-        @p24_merchant_id = ENV['P24_MERCHANT_ID']
-        @p24_pos_id = ENV['P24_POS_ID']
+        @p24_merchant_id = CREDENTIALS[:p24][:merchant_id]
+        @p24_pos_id = CREDENTIALS[:p24][:pos_id]
         @p24_session_id = checkout.order.identifier
-        @p24_url_return = ENV['P24_URL_RETURN']
-        @p24_url_status = ENV['P24_URL_STATUS']
-        @p24_api_version = ENV['P24_API_VERSION']
+        @p24_url_return = CREDENTIALS[:p24][:url_return]
+        @p24_url_status = CREDENTIALS[:p24][:url_status]
+        @p24_api_version = CREDENTIALS[:p24][:api_version]
         @p24_amount = checkout.order.final_price_net_cents
         @p24_currency = checkout.order.final_price_net_currency
         @p24_description = order_description
@@ -76,7 +76,7 @@ class Checkout
           p24_merchant_id,
           p24_amount,
           p24_currency,
-          ENV['P24_CRC_KEY']
+          CREDENTAILS[:p24][:crc_key]
         ].join('|')
 
         Digest::MD5.hexdigest(checksum)
