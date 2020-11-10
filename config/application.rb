@@ -25,7 +25,6 @@ module RubyLoversShop
     config.load_defaults 6.0
     config.active_record.schema_format = :sql
     config.hosts << "127.0.0.1"
-    config.hosts << "514a24a6b808.ngrok.io"
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

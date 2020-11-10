@@ -76,7 +76,7 @@ class Checkout
           p24_merchant_id,
           p24_amount,
           p24_currency,
-          CREDENTAILS[:p24][:crc_key]
+          CREDENTIALS[:p24][:crc_key]
         ].join('|')
 
         Digest::MD5.hexdigest(checksum)
