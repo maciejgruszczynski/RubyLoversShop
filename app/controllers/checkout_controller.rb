@@ -17,8 +17,29 @@ class CheckoutController < ApplicationController
     @form = @checkout.current_step.form.new(checkout_params)
 
     if @form.valid?
+      @checkout.current_step.update_order(@form)
       session[:checkout] = checkout_session.merge({ checkout.current_step.name => checkout_params })
+
       redirect_to checkout_path(step: checkout.next_step.name)
+    else
+      render @checkout.current_step.view_template
+    end
+  end
+
+  def make_payment
+    checkout = build_checkout
+    @form = @checkout.current_step.form.new(checkout_params)
+
+    if @form.valid?
+      @checkout.current_step.update_order(@form)
+      session[:checkout] = checkout_session.merge({ checkout.current_step.name => checkout_params })
+      p24_form = @checkout.next_step.form.new(@checkout)
+      result   = Checkout::Services::SendToPrzelewy24.new.call(p24_form)
+
+      if result.success?
+        token = result.success[:token]
+        redirect_to "https://sandbox.przelewy24.pl/trnRequest/#{token}"
+      end
     else
       render @checkout.current_step.view_template
     end
@@ -28,6 +49,8 @@ class CheckoutController < ApplicationController
 
   def build_checkout
     @checkout ||=  Checkout.new(step: params[:step], session: session)
+    checkout_session.merge!({ 'identifier' => @checkout.identifier })
+    @checkout
   end
 
   def checkout_session

@@ -2,12 +2,22 @@ require 'rails_helper'
 
 RSpec.describe Checkout do
   subject { described_class.new(step: step, session: session) }
+  let!(:order) { create(:order) }
+  let!(:product) { create(:product) }
 
   describe 'steps' do
-    let(:session) { { 'cart' => {'1' => '2' }} }
+    let(:session) {
+      {
+        checkout: {
+          'identifier' => order.identifier
+        },
+        cart: {
+          product.id => '2'
+        }
+      }
+    }
 
     context 'when no step' do
-      let(:session) { { 'address'=>{}, 'delivery_method'=>{}, 'payment'=>{} } }
       let(:step) { nil }
 
       it 'current step should be address' do
@@ -51,6 +61,22 @@ RSpec.describe Checkout do
       end
 
       it 'next step should be payment' do
+        expect(subject.next_step.name).to eq 'payment_info'
+      end
+    end
+
+    context 'when on payment_info step' do
+      let(:step) { 'payment_info' }
+
+      it 'current step should be payment' do
+        expect(subject.current_step.name).to eq 'payment_info'
+      end
+
+      it 'previous step should be delivery_method' do
+        expect(subject.previous_step.name).to eq 'delivery_method'
+      end
+
+      it 'next step should be summary' do
         expect(subject.next_step.name).to eq 'payment'
       end
     end
@@ -63,7 +89,7 @@ RSpec.describe Checkout do
       end
 
       it 'previous step should be delivery_method' do
-        expect(subject.previous_step.name).to eq 'delivery_method'
+        expect(subject.previous_step.name).to eq 'payment_info'
       end
 
       it 'next step should be summary' do
@@ -91,7 +117,8 @@ RSpec.describe Checkout do
   describe 'order_summary' do
     let(:step) { 'summary' }
     let(:checkout) {
-      {'address' => {
+      {
+        'address' => {
         'first_name' => 'Jan',
         'last_name' => 'Kowalski',
         'address_line' => '3-go maja 23',
@@ -102,10 +129,13 @@ RSpec.describe Checkout do
        'delivery_method' => {
          'name' => 'DHL'
        },
-       'payment' => {}}
+       'payment_info' => {
+         'customer_email' => 'maciek@maciek.com'
+       },
+       'identifier' => order.identifier
+      }
     }
-    let(:session) { { 'checkout' => checkout, 'cart' => {'1' => '2' }} }
-    let(:cart) { ShoppingCart.new({'1' => 2})}
+    let(:session) { { checkout: checkout, cart: { product.id => '2' }} }
 
     it 'returns Checkout::OrderSummary' do
       expect(subject.order_summary(checkout: checkout).is_a?(Checkout::OrderSummary)).to eq true

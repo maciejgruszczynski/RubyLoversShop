@@ -7,6 +7,8 @@ class Checkout
                          inclusion: { in: :allowed_delivery_methods }
 
       def initialize(attributes = {})
+        #step_attributes = attributes[:checkout]['address']
+
         @name  = attributes['name']
       end
 

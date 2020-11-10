@@ -12,7 +12,7 @@ if Rails.env.development?
       description: "Description of shirt_#{i}",
       code: initial_product_code.next!,
       price_cents: rand(1000),
-      price_currency: 'USD'
+      price_currency: 'PLN'
     ).save
   end
 
@@ -27,19 +27,19 @@ if Rails.env.development?
 
   puts 'Creating orders'
 
-  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "USD", delivery_method: 'DHL',
+  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "PLN", delivery_method: 'DHL',
                 identifier: rand(1000..9999), customer_email: "test_1@example.com", state: "new")
 
-  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "USD", delivery_method: 'DHL',
+  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "PLN", delivery_method: 'DHL',
                 identifier: rand(1000..9999), customer_email: "test_2@example.com", state: "with_customer_data")
 
-  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "USD", delivery_method: 'DHL',
+  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "PLN", delivery_method: 'DHL',
                 identifier: rand(1000..9999), customer_email: "test_3@example.com", state: "with_delivery_method")
 
-  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "USD", delivery_method: 'DHL',
+  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "PLN", delivery_method: 'DHL',
                 identifier: rand(1000..9999), customer_email: "test_4@example.com", state: "waiting_for_payment")
 
-  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "USD", delivery_method: 'DHL',
+  Order.create!(final_price_net_cents: 1000, final_price_net_currency: "PLN", delivery_method: 'DHL',
                 identifier: rand(1000..9999), customer_email: "test_5@example.com", state: "paid")
 
   puts 'Orders created'

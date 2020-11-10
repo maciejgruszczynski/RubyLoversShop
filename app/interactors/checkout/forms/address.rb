@@ -11,6 +11,8 @@ class Checkout
       validates :phone_number, presence: true
 
       def initialize(attributes = {})
+        #step_attributes = attributes[:checkout]['address'] || attributes
+
         @first_name   = attributes['first_name']
         @last_name    = attributes['last_name']
         @address_line = attributes['address_line']

@@ -1,9 +1,11 @@
 class Checkout
-  attr_reader :step, :cart
+  attr_reader :step, :cart, :identifier, :order
 
   def initialize(step: nil, session:)
     @step = step
     @cart = ::ShoppingCart::new(session)
+    @identifier =  session.dig('checkout', 'identifier') || order_identifier
+    @order = build_order
   end
 
   def current_step
@@ -26,10 +28,11 @@ class Checkout
 
   def available_steps
     {
-      'address' => Checkout::Steps::Address.new,
-      'delivery_method' => Checkout::Steps::DeliveryMethod.new,
-      'payment' => Checkout::Steps::Payment.new,
-      'summary' => Checkout::Steps::OrderSummary.new,
+      'address' => Checkout::Steps::Address.new(self),
+      'delivery_method' => Checkout::Steps::DeliveryMethod.new(self),
+      'payment_info' => Checkout::Steps::PaymentInfo.new(self),
+      'payment' => Checkout::Steps::Payment.new(self),
+      'summary' => Checkout::Steps::OrderSummary.new
     }
   end
 
@@ -48,7 +51,7 @@ class Checkout
   end
 
   def empty_session
-    { 'address'=>{}, 'delivery_method'=>{}, 'payment'=>{} }
+    { 'address'=>{}, 'delivery_method'=>{}, 'payment_info'=>{} }
   end
 
   private
@@ -63,5 +66,15 @@ class Checkout
 
   def last_step?
     step == step_names.last
+  end
+
+  def build_order
+    Order.where(
+      identifier: identifier, final_price_net_cents: cart.value.cents, final_price_net_currency: cart.value.currency.iso_code
+    ).first_or_create
+  end
+
+  def order_identifier
+    SecureRandom.base64(10).tr('+/=lIO0', 'abcdefg')
   end
 end

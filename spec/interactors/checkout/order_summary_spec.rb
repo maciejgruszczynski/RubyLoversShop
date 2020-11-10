@@ -19,7 +19,9 @@ RSpec.describe Checkout::OrderSummary do
           'delivery_method' => {
             'name' => 'DHL'
           },
-          'payment' => {}
+          'payment_info' => {
+            'customer_email' => 'customer@example.com'
+          }
         }
       }
 
@@ -34,7 +36,7 @@ RSpec.describe Checkout::OrderSummary do
       end
 
       it 'should have payment object' do
-        expect(subject.payment.is_a?(Checkout::Forms::Payment)).to eq true
+        expect(subject.payment_info.is_a?(Checkout::Forms::PaymentInfo)).to eq true
       end
 
       it 'should have ShoppingCart object' do

@@ -143,7 +143,9 @@ CREATE TABLE public.orders (
     updated_at timestamp(6) without time zone NOT NULL,
     identifier character varying,
     customer_email character varying,
-    state character varying
+    state character varying,
+    payment_token character varying,
+    payment_errors character varying
 );
 
 
@@ -392,6 +394,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200602210247'),
 ('20201004175114'),
 ('20201013111441'),
-('20201014135658');
+('20201014135658'),
+('20201104164706');
 
 
